@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<selection-tag><!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +37,6 @@
     <!-- hCaptcha Script -->
     <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
     <style>
-        /* Custom smooth focus transitions and glass backdrops */
         .glass-panel {
             background: rgba(18, 18, 26, 0.7);
             backdrop-filter: blur(20px);
@@ -57,7 +56,6 @@
             box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15), 0 0 20px rgba(139, 92, 246, 0.2);
         }
 
-        /* Ambient background glow spheres */
         @keyframes floatSlow {
             0%, 100% { transform: translate(0px, 0px) scale(1); }
             50% { transform: translate(30px, -40px) scale(1.1); }
@@ -69,7 +67,6 @@
         .animate-float-1 { animation: floatSlow 12s ease-in-out infinite; }
         .animate-float-2 { animation: floatReverse 15s ease-in-out infinite; }
 
-        /* Checkmark stroke animation */
         @keyframes strokeCheck {
             to { stroke-dashoffset: 0; }
         }
@@ -79,7 +76,6 @@
             animation: strokeCheck 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
         }
 
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0b0b10; }
         ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
@@ -88,7 +84,7 @@
 </head>
 <body class="bg-[#09090e] text-slate-100 min-h-screen font-sans selection:bg-purple-500 selection:text-white relative overflow-x-hidden flex flex-col justify-between">
 
-    <!-- Ambient Background Radial Lighting -->
+    <!-- Ambient Background Lighting -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div class="absolute -top-[20%] -left-[10%] w-[600px] h-[600px] rounded-full bg-purple-600/15 blur-[120px] animate-float-1"></div>
         <div class="absolute top-[40%] -right-[10%] w-[700px] h-[700px] rounded-full bg-indigo-600/12 blur-[140px] animate-float-2"></div>
@@ -96,7 +92,7 @@
         <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#09090e]/80 to-[#09090e]"></div>
     </div>
 
-    <!-- Header / Navigation Bar -->
+    <!-- Header -->
     <header class="relative z-10 w-full max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
@@ -112,54 +108,44 @@
         </div>
     </header>
 
-    <!-- Main Contact Container -->
+    <!-- Main Content -->
     <main class="relative z-10 w-full max-w-2xl mx-auto px-4 py-8 flex-grow flex items-center justify-center">
         <div class="w-full glass-panel rounded-3xl p-8 sm:p-10 shadow-glass border border-white/10 relative overflow-hidden">
             
-            <!-- Top Subtle Shimmer Border -->
             <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
 
-            <!-- Heading Section -->
             <div class="mb-8 text-center sm:text-left">
                 <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">Let's build something exceptional.</h1>
                 <p class="text-slate-400 text-sm sm:text-base">Have a project in mind, an inquiry, or just want to connect? Drop a message below.</p>
             </div>
 
-            <!-- Contact Form (Web3Forms Integrated) -->
-            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-6" novalidate>
+            <!-- Contact Form -->
+            <form id="contactForm" class="space-y-6" novalidate>
                 
-                <!-- Web3Forms Access Key -->
-                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
-                <input type="hidden" name="subject" value="New Contact Form Submission from Sanchar Workspace">
+                <!-- Web3Forms Config Hidden Fields -->
+                <input type="hidden" name="access_key" value="YOUR_ACTUAL_WEB3FORMS_ACCESS_KEY">
+                <input type="hidden" name="subject" value="New Inquiry from Sanchar Workspace">
                 <input type="hidden" name="from_name" value="Sanchar Contact Portal">
 
-                <!-- Invisible Honeypot Spam Protection Field -->
-                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <!-- Honeypot Field -->
+                <input type="text" name="botcheck" class="hidden" style="display: none !important;" tabindex="-1" autocomplete="off">
 
-                <!-- Grid Inputs for Name & Email -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- Full Name -->
                     <div class="space-y-2">
                         <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Your Name <span class="text-purple-400">*</span></label>
-                        <div class="relative">
-                            <input type="text" id="name" name="name" required placeholder="Alex Mercer"
-                                class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none">
-                        </div>
+                        <input type="text" id="name" name="name" required placeholder="Alex Mercer"
+                            class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none">
                         <p id="nameError" class="text-xs text-red-400 hidden">Please enter your name.</p>
                     </div>
 
-                    <!-- Email Address -->
                     <div class="space-y-2">
                         <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Email Address <span class="text-purple-400">*</span></label>
-                        <div class="relative">
-                            <input type="email" id="email" name="email" required placeholder="alex@company.com"
-                                class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none">
-                        </div>
+                        <input type="email" id="email" name="email" required placeholder="alex@company.com"
+                            class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none">
                         <p id="emailError" class="text-xs text-red-400 hidden">Please enter a valid email address.</p>
                     </div>
                 </div>
 
-                <!-- Subject / Project Type -->
                 <div class="space-y-2">
                     <label for="topic" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Inquiry Subject</label>
                     <div class="relative">
@@ -176,25 +162,21 @@
                     </div>
                 </div>
 
-                <!-- Message with Live Character Count -->
                 <div class="space-y-2">
                     <div class="flex items-center justify-between">
                         <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Your Message <span class="text-purple-400">*</span></label>
                         <span id="charCounter" class="text-xs font-mono text-slate-400 transition-colors duration-200">0 / 500</span>
                     </div>
-                    <div class="relative">
-                        <textarea id="message" name="message" rows="5" required maxlength="500" placeholder="Tell me about your project, timeline, and technical scope..."
-                            class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none resize-none"></textarea>
-                    </div>
+                    <textarea id="message" name="message" rows="5" required maxlength="500" placeholder="Tell me about your project, timeline, and technical scope..."
+                        class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none resize-none"></textarea>
                     <p id="messageError" class="text-xs text-red-400 hidden">Message must be at least 10 characters.</p>
                 </div>
 
-                <!-- hCaptcha Widget Container -->
+                <!-- hCaptcha Widget -->
                 <div class="pt-2 flex justify-center sm:justify-start">
-                    <div class="h-captcha" data-sitekey="55b6329e-2605-4f30-b9eb-03316f3d9b43" data-theme="dark"></div>
+                    <div class="h-captcha" data-sitekey="YOUR_ACTUAL_HCAPTCHA_SITE_KEY" data-theme="dark"></div>
                 </div>
 
-                <!-- Action Button -->
                 <div class="pt-4">
                     <button type="submit" id="submitBtn"
                         class="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white font-medium text-sm tracking-wide shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer border border-purple-400/20">
@@ -222,24 +204,18 @@
         </div>
     </footer>
 
-    <!-- Custom Success Modal (Morphing Animation & Confetti Trigger) -->
+    <!-- Success Modal -->
     <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
         <div id="modalCard" class="w-full max-w-md glass-panel rounded-3xl p-8 shadow-2xl border border-white/15 transform scale-95 transition-all duration-300 text-center relative overflow-hidden">
-            
-            <!-- Confetti Canvas overlay inside modal -->
             <canvas id="confettiCanvas" class="absolute inset-0 pointer-events-none w-full h-full z-0"></canvas>
-
             <div class="relative z-10 flex flex-col items-center">
-                <!-- Checkmark Animated Circle -->
                 <div class="w-20 h-20 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center mb-6 shadow-glow">
                     <svg class="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path class="animate-checkmark" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-
                 <h3 class="text-2xl font-bold text-white mb-2">Message Dispatched!</h3>
                 <p class="text-slate-300 text-sm mb-8 leading-relaxed">Thank you for reaching out. Your secure transmission has been successfully delivered. I will respond promptly.</p>
-
                 <button id="closeModalBtn"
                     class="w-full py-3.5 px-6 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm transition-all border border-white/10 cursor-pointer shadow-md">
                     Return to Portal
@@ -248,10 +224,9 @@
         </div>
     </div>
 
-    <!-- Toast Notification System -->
+    <!-- Toast Notifications -->
     <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-3 pointer-events-none"></div>
 
-    <!-- JavaScript Application Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('contactForm');
@@ -269,18 +244,12 @@
             const closeModalBtn = document.getElementById('closeModalBtn');
             const toastContainer = document.getElementById('toastContainer');
 
-            // Haptic feedback helper
             const triggerHaptic = (pattern = 15) => {
                 if ('vibrate' in navigator) {
-                    try {
-                        navigator.vibrate(pattern);
-                    } catch (e) {
-                        // Ignore if permission denied or unsupported context
-                    }
+                    try { navigator.vibrate(pattern); } catch (e) {}
                 }
             };
 
-            // Toast notification generator
             const showToast = (message, type = 'info') => {
                 const toast = document.createElement('div');
                 toast.className = `pointer-events-auto flex items-center space-x-3 px-4 py-3 rounded-2xl glass-panel text-sm text-white shadow-xl border transition-all duration-300 transform translate-y-4 opacity-0`;
@@ -297,9 +266,7 @@
                 }
 
                 toastContainer.appendChild(toast);
-                requestAnimationFrame(() => {
-                    toast.classList.remove('translate-y-4', 'opacity-0');
-                });
+                requestAnimationFrame(() => toast.classList.remove('translate-y-4', 'opacity-0'));
 
                 setTimeout(() => {
                     toast.classList.add('translate-y-4', 'opacity-0');
@@ -307,38 +274,29 @@
                 }, 4000);
             };
 
-            // Input focus haptic & glow effects
-            const inputs = [nameInput, emailInput, messageInput, document.getElementById('topic')];
-            inputs.forEach(input => {
-                input.addEventListener('focus', () => {
-                    triggerHaptic(10);
-                });
+            [nameInput, emailInput, messageInput, document.getElementById('topic')].forEach(input => {
+                input.addEventListener('focus', () => triggerHaptic(10));
             });
 
-            // Live Character Limit Counter & Dynamic States (80% warning, 100% error)
             const maxLength = 500;
             messageInput.addEventListener('input', (e) => {
                 const currentLength = e.target.value.length;
                 charCounter.textContent = `${currentLength} / ${maxLength}`;
-
                 const percentage = currentLength / maxLength;
                 if (percentage >= 1.0) {
                     charCounter.className = 'text-xs font-mono text-red-400 font-bold';
                     triggerHaptic([30, 50, 30]);
                 } else if (percentage >= 0.8) {
                     charCounter.className = 'text-xs font-mono text-amber-400 font-semibold';
-                    if (currentLength % 10 === 0) triggerHaptic(15);
                 } else {
                     charCounter.className = 'text-xs font-mono text-slate-400';
                 }
             });
 
-            // Form Validation & Submission Handling
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 triggerHaptic(25);
 
-                // Basic validation checks
                 let isValid = true;
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -376,12 +334,11 @@
 
                 // Check honeypot
                 const botcheckField = form.querySelector('input[name="botcheck"]');
-                if (botcheckField && botcheckField.checked) {
-                    showToast('Bot detection triggered.', 'error');
+                if (botcheckField && botcheckField.value.trim() !== '') {
+                    showToast('Automated bot submission detected.', 'error');
                     return;
                 }
 
-                // UI Loading State
                 submitBtn.disabled = true;
                 btnText.textContent = 'Transmitting...';
                 btnIcon.classList.add('hidden');
@@ -403,7 +360,7 @@
                     
                     const result = await response.json();
                     
-                    if (response.status === 200) {
+                    if (response.status === 200 && result.success) {
                         triggerHaptic([50, 100, 50]);
                         openSuccessModal();
                         form.reset();
@@ -416,7 +373,7 @@
                     }
                 } catch (error) {
                     triggerHaptic([40, 40, 40]);
-                    showToast(error.message || 'Network transmission error. Please try again.', 'error');
+                    showToast(error.message || 'Transmission error. Please check your Access Key.', 'error');
                 } finally {
                     submitBtn.disabled = false;
                     btnText.textContent = 'Send Secure Message';
@@ -425,7 +382,6 @@
                 }
             });
 
-            // Success Modal Controller with Confetti Animation
             function openSuccessModal() {
                 successModal.classList.remove('opacity-0', 'pointer-events-none');
                 modalCard.classList.remove('scale-95');
@@ -445,12 +401,9 @@
             });
 
             successModal.addEventListener('click', (e) => {
-                if (e.target === successModal) {
-                    closeSuccessModal();
-                }
+                if (e.target === successModal) closeSuccessModal();
             });
 
-            // Lightweight Confetti Particle Engine
             function runConfetti() {
                 const canvas = document.getElementById('confettiCanvas');
                 const ctx = canvas.getContext('2d');
@@ -482,7 +435,7 @@
                             activeCount++;
                             p.x += p.vx;
                             p.y += p.vy;
-                            p.vy += 0.2; // gravity
+                            p.vy += 0.2;
                             p.alpha -= p.decay;
 
                             ctx.save();
@@ -495,9 +448,7 @@
                         }
                     });
 
-                    if (activeCount > 0) {
-                        requestAnimationFrame(animateConfetti);
-                    }
+                    if (activeCount > 0) requestAnimationFrame(animateConfetti);
                 }
 
                 animateConfetti();
@@ -505,4 +456,4 @@
         });
     </script>
 </body>
-</html>
+</html></selection-tag>```
