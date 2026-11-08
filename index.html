@@ -15,18 +15,8 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#07080c',
-                        darkSurface: '#12131c',
-                        neuBg: '#e4e7ec',
-                        neuDark: '#d1d5db',
-                        neuLight: '#ffffff'
-                    },
-                    boxShadow: {
-                        neu: '8px 8px 16px rgba(163, 177, 198, 0.6), -8px -8px 16px rgba(255, 255, 255, 0.8)',
-                        'neu-inset': 'inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.8)',
-                        'neu-dark': '8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(30, 32, 45, 0.5)',
-                        'neu-dark-inset': 'inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(30, 32, 45, 0.5)',
-                        glass: '0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                        darkBg: '#050508',
+                        darkSurface: '#0d0e15',
                     }
                 }
             }
@@ -39,99 +29,102 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #07080c;
+            background-color: #050508;
             color: #f3f4f6;
             overflow-x: hidden;
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* --- THEME STYLES --- */
-        
-        /* 1. Glassmorphism Theme (Default) */
+        /* --- THEME 1: GLASSMORPHISM --- */
         [data-theme="glass"] {
-            background-color: #07080c;
+            background: radial-gradient(circle at 50% 0%, #111425 0%, #050508 70%);
         }
-        [data-theme="glass"] .theme-card {
-            background: rgba(18, 19, 28, 0.65);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+        [data-theme="glass"] .custom-container {
+            background: rgba(15, 17, 26, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
-        [data-theme="glass"] .theme-input {
-            background: rgba(12, 13, 20, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        [data-theme="glass"] .custom-control {
+            background: rgba(10, 11, 18, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
             color: #f3f4f6;
         }
-        [data-theme="glass"] .theme-input:focus {
-            border-color: rgba(59, 130, 246, 0.7);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        [data-theme="glass"] .custom-control:focus-within, 
+        [data-theme="glass"] .custom-control:focus {
+            border-color: rgba(99, 102, 241, 0.6);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.4);
         }
 
-        /* 2. Neumorphism Theme */
+        /* --- THEME 2: DARK NEUMORPHISM (Soft-UI Dark) --- */
         [data-theme="neumorph"] {
-            background-color: #e4e7ec;
-            color: #1f2937;
+            background-color: #12141c;
+            color: #e5e7eb;
         }
-        [data-theme="neumorph"] .theme-card {
-            background: #e4e7ec;
+        [data-theme="neumorph"] .custom-container {
+            background: #12141c;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 18px 18px 36px #0b0c11, -18px -18px 36px #191c27;
+        }
+        [data-theme="neumorph"] .custom-control {
+            background: #12141c;
             border: none;
-            box-shadow: 12px 12px 24px rgba(163, 177, 198, 0.7), -12px -12px 24px rgba(255, 255, 255, 0.9);
+            box-shadow: inset 6px 6px 12px #0b0c11, inset -6px -6px 12px #191c27;
+            color: #e5e7eb;
         }
-        [data-theme="neumorph"] .theme-input {
-            background: #e4e7ec;
-            border: none;
-            box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
-            color: #1f2937;
-        }
-        [data-theme="neumorph"] .theme-input:focus {
-            box-shadow: inset 6px 6px 10px rgba(163, 177, 198, 0.8), inset -6px -6px 10px rgba(255, 255, 255, 0.9), 0 0 0 2px rgba(59, 130, 246, 0.4);
+        [data-theme="neumorph"] .custom-control:focus-within, 
+        [data-theme="neumorph"] .custom-control:focus {
+            box-shadow: inset 8px 8px 14px #0b0c11, inset -8px -8px 14px #191c27, 0 0 0 2px rgba(99, 102, 241, 0.5);
         }
 
-        /* 3. Normal Clean Minimalist Dark Theme */
-        [data-theme="normal"] {
-            background-color: #0f1117;
+        /* --- THEME 3: MINIMALIST OLED DARK --- */
+        [data-theme="minimal"] {
+            background-color: #000000;
         }
-        [data-theme="normal"] .theme-card {
-            background: #161922;
-            border: 1px solid #232733;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        [data-theme="minimal"] .custom-container {
+            background: #08080a;
+            border: 1px solid #1a1a24;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
         }
-        [data-theme="normal"] .theme-input {
-            background: #0f1117;
-            border: 1px solid #2a2f3d;
-            color: #f3f4f6;
+        [data-theme="minimal"] .custom-control {
+            background: #030305;
+            border: 1px solid #222230;
+            box-shadow: none;
+            color: #ffffff;
         }
-        [data-theme="normal"] .theme-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        [data-theme="minimal"] .custom-control:focus-within, 
+        [data-theme="minimal"] .custom-control:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
         }
 
-        /* --- PARTICLE & ANIMATION EFFECTS --- */
+        /* --- ANIMATED PARTICLES & GLOWS --- */
         .particle {
             position: absolute;
             border-radius: 50%;
             pointer-events: none;
-            animation: floatParticle 12s infinite linear;
+            animation: floatParticle 14s infinite linear;
         }
         @keyframes floatParticle {
             0% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.6; }
-            100% { transform: translateY(-700px) translateX(150px) rotate(360deg); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateY(-800px) translateX(200px) rotate(360deg); opacity: 0; }
         }
 
         @keyframes pulseGlow {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.08); }
+            0%, 100% { opacity: 0.25; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.08); }
         }
-        .ambient-glow-1 { animation: pulseGlow 8s ease-in-out infinite; }
-        .ambient-glow-2 { animation: pulseGlow 10s ease-in-out infinite 2s; }
+        .ambient-glow-1 { animation: pulseGlow 9s ease-in-out infinite; }
+        .ambient-glow-2 { animation: pulseGlow 11s ease-in-out infinite 3s; }
 
         /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #07080c; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative">
@@ -141,47 +134,47 @@
 
     <!-- Ambient Background Gradients -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="ambient-glow-1 absolute -top-40 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-[140px]"></div>
-        <div class="ambient-glow-2 absolute -bottom-40 -right-40 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]"></div>
+        <div class="ambient-glow-1 absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/15 rounded-full blur-[150px]"></div>
+        <div class="ambient-glow-2 absolute -bottom-40 -right-40 w-96 h-96 bg-purple-600/15 rounded-full blur-[150px]"></div>
     </div>
 
-    <!-- Theme Switcher Bar Floating Top -->
+    <!-- Top Floating Theme Switcher Header -->
     <header class="relative z-20 mb-6 w-full max-w-xl flex items-center justify-between px-2">
         <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
-            <span class="text-xs font-mono uppercase tracking-widest opacity-70">Masterclass Studio</span>
+            <div class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></div>
+            <span class="text-xs font-mono uppercase tracking-widest opacity-60">Interface</span>
         </div>
         
-        <!-- Theme Selector Pills -->
-        <nav aria-label="Theme Selector" class="flex items-center gap-1.5 p-1 rounded-2xl theme-card shadow-lg transition-all">
-            <button type="button" data-theme-btn="glass" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-blue-600 text-white shadow-md">Glass</button>
-            <button type="button" data-theme-btn="neumorph" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-70 hover:opacity-100">Neumorph</button>
-            <button type="button" data-theme-btn="normal" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-70 hover:opacity-100">Minimal</button>
-        </nav>
+        <!-- Custom Switcher Component -->
+        <div class="flex items-center gap-1 p-1 rounded-2xl custom-container shadow-md transition-all">
+            <button type="button" data-theme-btn="glass" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-indigo-600 text-white shadow-lg cursor-pointer">Glass</button>
+            <button type="button" data-theme-btn="neumorph" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-60 hover:opacity-100 cursor-pointer">Neumorph</button>
+            <button type="button" data-theme-btn="minimal" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-60 hover:opacity-100 cursor-pointer">Minimal</button>
+        </div>
     </header>
 
     <!-- Main Container -->
     <main class="w-full max-w-xl relative z-10">
         
         <!-- Master Card -->
-        <div class="theme-card rounded-3xl p-6 sm:p-10 relative overflow-hidden transition-all duration-500">
+        <div class="custom-container rounded-3xl p-6 sm:p-10 relative overflow-hidden transition-all duration-500">
             
-            <!-- Top Header Accent Bar -->
-            <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
+            <!-- Top Gradient Accent Bar -->
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
 
-            <!-- Header & Interactive Live Status Badge -->
+            <!-- Header & Live Status Widget -->
             <div class="mb-8 flex items-start justify-between">
                 <div>
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium tracking-wide uppercase mb-3">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-                        Secure Dispatch
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                        Direct Line
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Let's connect</h1>
-                    <p class="text-sm opacity-70 mt-1.5">Engineered with precision and real-time validation.</p>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Get in touch</h1>
+                    <p class="text-sm opacity-60 mt-1.5">Send a secure message and receive a prompt response.</p>
                 </div>
 
-                <!-- Interactive Time / Availability Widget -->
-                <div id="statusWidget" class="theme-input px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all select-none group relative shadow-inner" title="Click to check availability">
+                <!-- Custom Interactive Time Widget -->
+                <div id="statusWidget" class="custom-control px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all select-none group" title="Click to check status">
                     <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" id="statusDot"></div>
                     <div class="text-right">
                         <div class="text-[10px] opacity-60 font-mono uppercase tracking-wider" id="statusLabel">Online</div>
@@ -190,78 +183,78 @@
                 </div>
             </div>
 
-            <!-- Form with Web3Forms Integration -->
+            <!-- Form -->
             <form id="contactForm" class="space-y-5" novalidate>
                 
-                <!-- Web3Forms Config (Note: Web3Forms requires access_key first, subject second, and botcheck third) -->
+                <!-- Web3Forms Hidden Configuration -->
                 <input type="hidden" name="access_key" value="92e59170-4f95-46aa-afde-c923dcc60451">
-                <input type="hidden" name="subject" value="New Contact Form Submission from Masterclass Form">
+                <input type="hidden" name="subject" value="New Contact Form Submission">
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                 
-                <!-- Hidden Field for reCAPTCHA Enterprise Token -->
+                <!-- Hidden reCAPTCHA Enterprise Token Field -->
                 <input type="hidden" name="g-recaptcha-response" id="gRecaptchaResponse">
 
-                <!-- First Name & Last Name Grid -->
+                <!-- First Name & Last Name Custom Containers -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- First Name Field -->
+                    <!-- First Name -->
                     <div class="space-y-1.5">
-                        <label for="firstName" class="block text-xs font-bold tracking-wider uppercase opacity-80">First Name</label>
-                        <div class="relative">
+                        <label for="firstName" class="block text-xs font-bold tracking-wider uppercase opacity-75">First Name</label>
+                        <div class="custom-control rounded-2xl flex items-center px-4 py-3.5 transition-all">
                             <input 
                                 type="text" 
                                 id="firstName" 
                                 name="first_name" 
                                 required 
                                 maxlength="40"
-                                placeholder="Sanchar" 
-                                class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all"
+                                placeholder="John" 
+                                class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-500"
                             >
                         </div>
                         <p id="firstNameError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter your first name.</p>
                     </div>
 
-                    <!-- Last Name Field -->
+                    <!-- Last Name -->
                     <div class="space-y-1.5">
-                        <label for="lastName" class="block text-xs font-bold tracking-wider uppercase opacity-80">Last Name</label>
-                        <div class="relative">
+                        <label for="lastName" class="block text-xs font-bold tracking-wider uppercase opacity-75">Last Name</label>
+                        <div class="custom-control rounded-2xl flex items-center px-4 py-3.5 transition-all">
                             <input 
                                 type="text" 
                                 id="lastName" 
                                 name="last_name" 
                                 required 
                                 maxlength="40"
-                                placeholder="Koirala" 
-                                class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all"
+                                placeholder="Doe" 
+                                class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-500"
                             >
                         </div>
                         <p id="lastNameError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter your last name.</p>
                     </div>
                 </div>
 
-                <!-- Email Field -->
+                <!-- Email Custom Container -->
                 <div class="space-y-1.5">
-                    <label for="email" class="block text-xs font-bold tracking-wider uppercase opacity-80">Email Address</label>
-                    <div class="relative">
+                    <label for="email" class="block text-xs font-bold tracking-wider uppercase opacity-75">Email Address</label>
+                    <div class="custom-control rounded-2xl flex items-center px-4 py-3.5 transition-all">
                         <input 
                             type="email" 
                             id="email" 
                             name="email" 
                             required 
                             maxlength="100"
-                            placeholder="sanchar@example.com" 
-                            class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all"
+                            placeholder="john.doe@example.com" 
+                            class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-500"
                         >
                     </div>
                     <p id="emailError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter a valid email address.</p>
                 </div>
 
-                <!-- Message Field -->
+                <!-- Message Custom Container -->
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <label for="message" class="block text-xs font-bold tracking-wider uppercase opacity-80">Message</label>
+                        <label for="message" class="block text-xs font-bold tracking-wider uppercase opacity-75">Message</label>
                         <span id="charCounter" class="text-xs opacity-50 font-mono">0 / 500</span>
                     </div>
-                    <div class="relative">
+                    <div class="custom-control rounded-2xl p-4 transition-all">
                         <textarea 
                             id="message" 
                             name="message" 
@@ -269,37 +262,35 @@
                             rows="4" 
                             maxlength="500"
                             placeholder="Write your message here (min 10 characters)..." 
-                            class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all resize-none"
+                            class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-500 resize-none"
                         ></textarea>
                     </div>
                     <p id="messageError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter at least 10 characters.</p>
                 </div>
 
-                <!-- reCAPTCHA Enterprise Verification Badge -->
+                <!-- reCAPTCHA Enterprise Custom Container -->
                 <div class="pt-1">
-                    <div class="theme-input p-3.5 rounded-2xl flex items-center justify-between select-none">
+                    <div class="custom-control p-3.5 rounded-2xl flex items-center justify-between select-none">
                         <div class="flex items-center gap-3">
-                            <div class="w-5 h-5 rounded-md border border-blue-500 bg-blue-600/20 flex items-center justify-center">
-                                <svg class="w-3.5 h-3.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <div class="w-5 h-5 rounded-md border border-indigo-500 bg-indigo-600/20 flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                                 </svg>
                             </div>
                             <span class="text-xs font-medium opacity-90">Protected by Google reCAPTCHA Enterprise</span>
                         </div>
-                        <div class="flex items-center gap-1.5 opacity-60">
-                            <span class="text-[10px] font-mono">Secure</span>
-                        </div>
+                        <span class="text-[10px] font-mono opacity-60">Encrypted</span>
                     </div>
                 </div>
 
-                <!-- Submit Button -->
+                <!-- Custom Submit Button Wrapper -->
                 <button 
                     type="submit" 
                     id="submitBtn"
                     class="w-full relative group overflow-hidden rounded-2xl p-px font-bold text-sm shadow-xl transition-all active:scale-[0.99] cursor-pointer"
                 >
-                    <span class="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 group-hover:opacity-90 transition-opacity"></span>
-                    <span class="relative flex items-center justify-center gap-2 px-6 py-4 rounded-[15px] bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-inner">
+                    <span class="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 group-hover:opacity-90 transition-opacity"></span>
+                    <span class="relative flex items-center justify-center gap-2 px-6 py-4 rounded-[15px] bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-inner">
                         <span id="btnText">Send Message</span>
                         <svg id="btnArrow" class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -317,9 +308,9 @@
 
     <!-- Custom Success Modal -->
     <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-        <div class="theme-card w-full max-w-md rounded-3xl p-8 text-center relative transform scale-95 transition-all duration-300 shadow-2xl" id="successCard">
+        <div class="custom-container w-full max-w-md rounded-3xl p-8 text-center relative transform scale-95 transition-all duration-300 shadow-2xl" id="successCard">
             
-            <!-- Close / Reset Button -->
+            <!-- Close Button -->
             <button id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
@@ -327,19 +318,19 @@
             </button>
 
             <!-- Animated Check Icon -->
-            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-tr from-blue-500/20 to-indigo-500/25 border border-blue-500/30 flex items-center justify-center relative shadow-inner">
-                <div class="absolute inset-0 rounded-full bg-blue-500/10 animate-ping"></div>
-                <svg class="w-10 h-10 text-blue-400 transform scale-0 transition-transform duration-500 delay-150" id="successCheckSvg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-tr from-indigo-500/20 to-purple-500/25 border border-indigo-500/30 flex items-center justify-center relative shadow-inner">
+                <div class="absolute inset-0 rounded-full bg-indigo-500/10 animate-ping"></div>
+                <svg class="w-10 h-10 text-indigo-400 transform scale-0 transition-transform duration-500 delay-150" id="successCheckSvg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
 
             <h3 class="text-2xl font-extrabold mb-2">Message Sent Successfully</h3>
-            <p class="text-sm opacity-70 mb-8 leading-relaxed">Thank you for reaching out. Your secure transmission has been successfully delivered.</p>
+            <p class="text-sm opacity-60 mb-8 leading-relaxed">Thank you for reaching out. Your secure transmission has been delivered.</p>
 
             <button 
                 id="modalDoneBtn"
-                class="w-full py-3.5 px-6 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-lg cursor-pointer"
+                class="w-full py-3.5 px-6 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm transition-all shadow-lg cursor-pointer"
             >
                 Done
             </button>
@@ -358,17 +349,12 @@
 
             const setTheme = (themeName) => {
                 htmlElement.setAttribute('data-theme', themeName);
-                if (themeName === 'neumorph') {
-                    htmlElement.classList.remove('dark');
-                } else {
-                    htmlElement.classList.add('dark');
-                }
                 
                 themeButtons.forEach(btn => {
                     if (btn.getAttribute('data-theme-btn') === themeName) {
-                        btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-blue-600 text-white shadow-md';
+                        btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-indigo-600 text-white shadow-lg cursor-pointer';
                     } else {
-                        btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-70 hover:opacity-100';
+                        btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-60 hover:opacity-100 cursor-pointer';
                     }
                 });
                 localStorage.setItem('masterclass_theme', themeName);
@@ -387,16 +373,16 @@
 
             // --- Particle Generator ---
             const particleContainer = document.getElementById('particleContainer');
-            const particleCount = 20;
+            const particleCount = 22;
             for (let i = 0; i < particleCount; i++) {
                 const p = document.createElement('div');
-                p.className = 'particle bg-blue-500/20';
+                p.className = 'particle bg-indigo-500/20';
                 const size = Math.random() * 6 + 2;
                 p.style.width = `${size}px`;
                 p.style.height = `${size}px`;
                 p.style.left = `${Math.random() * 100}vw`;
                 p.style.top = `${Math.random() * 100 + 100}vh`;
-                p.style.animationDuration = `${Math.random() * 10 + 8}s`;
+                p.style.animationDuration = `${Math.random() * 12 + 8}s`;
                 p.style.animationDelay = `${Math.random() * 5}s`;
                 particleContainer.appendChild(p);
             }
@@ -474,8 +460,8 @@
 
             const showToast = (message, type = 'success') => {
                 const toast = document.createElement('div');
-                toast.className = `pointer-events-auto px-4 py-3 rounded-2xl theme-card text-sm shadow-2xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 border ${type === 'error' ? 'border-rose-500/50 bg-rose-950/40 text-white' : 'border-blue-500/50 bg-blue-950/40 text-white'}`;
-                toast.innerHTML = `<span class="w-2 h-2 rounded-full ${type === 'error' ? 'bg-rose-400' : 'bg-blue-400'}"></span><span>${message}</span>`;
+                toast.className = `pointer-events-auto px-4 py-3 rounded-2xl custom-container text-sm shadow-2xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 border ${type === 'error' ? 'border-rose-500/50 bg-rose-950/40 text-white' : 'border-indigo-500/50 bg-indigo-950/40 text-white'}`;
+                toast.innerHTML = `<span class="w-2 h-2 rounded-full ${type === 'error' ? 'bg-rose-400' : 'bg-indigo-400'}"></span><span>${message}</span>`;
                 toastContainer.appendChild(toast);
                 
                 requestAnimationFrame(() => toast.classList.remove('translate-y-4', 'opacity-0'));
@@ -550,12 +536,10 @@
                         gRecaptchaResponse.value = token;
                     }
 
-                    // --- FIX FOR WEB3FORMS 400 BAD REQUEST ---
-                    // Web3Forms strictly expects plain URL-encoded or JSON with proper key-value pairs.
-                    // Ensuring access_key is first and all keys are exact.
+                    // Strict payload structure for Web3Forms 
                     const payload = {
                         access_key: "92e59170-4f95-46aa-afde-c923dcc60451",
-                        subject: "New Contact Form Submission from Masterclass Form",
+                        subject: "New Contact Form Submission",
                         first_name: firstNameInput.value.trim(),
                         last_name: lastNameInput.value.trim(),
                         email: emailInput.value.trim(),
