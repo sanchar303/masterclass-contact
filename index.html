@@ -7,8 +7,8 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google reCAPTCHA Enterprise API -->
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV"></script>
+    <!-- Google reCAPTCHA Enterprise JavaScript API with your Site Key -->
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV" async defer></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -133,24 +133,47 @@
                 <input type="hidden" name="access_key" value="92e59170-4f95-46aa-afde-c923dcc60451">
                 <input type="hidden" name="subject" value="New Contact Form Submission from Masterclass Form">
                 
+                <!-- Hidden Field to receive the reCAPTCHA token for Web3Forms submission payload -->
+                <input type="hidden" name="g-recaptcha-response" id="gRecaptchaResponse">
+                
                 <!-- Honeypot Anti-Spam Field -->
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                <!-- Name Field -->
-                <div class="space-y-1.5">
-                    <label for="name" class="block text-xs font-semibold tracking-wider uppercase text-gray-300">Name</label>
-                    <div class="relative">
-                        <input 
-                            type="text" 
-                            id="name" 
-                            name="name" 
-                            required 
-                            maxlength="60"
-                            placeholder="Jane Doe" 
-                            class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500"
-                        >
+                <!-- First Name & Last Name Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- First Name Field -->
+                    <div class="space-y-1.5">
+                        <label for="firstName" class="block text-xs font-semibold tracking-wider uppercase text-gray-300">First Name</label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="firstName" 
+                                name="first_name" 
+                                required 
+                                maxlength="40"
+                                placeholder="Sanchar" 
+                                class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500"
+                            >
+                        </div>
+                        <p id="firstNameError" class="text-xs text-rose-400 hidden mt-1">Please enter your first name.</p>
                     </div>
-                    <p id="nameError" class="text-xs text-rose-400 hidden mt-1">Please enter your name.</p>
+
+                    <!-- Last Name Field -->
+                    <div class="space-y-1.5">
+                        <label for="lastName" class="block text-xs font-semibold tracking-wider uppercase text-gray-300">Last Name</label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="lastName" 
+                                name="last_name" 
+                                required 
+                                maxlength="40"
+                                placeholder="Koirala" 
+                                class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500"
+                            >
+                        </div>
+                        <p id="lastNameError" class="text-xs text-rose-400 hidden mt-1">Please enter your last name.</p>
+                    </div>
                 </div>
 
                 <!-- Email Field -->
@@ -163,7 +186,7 @@
                             name="email" 
                             required 
                             maxlength="100"
-                            placeholder="jane@example.com" 
+                            placeholder="sanchar@example.com" 
                             class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500"
                         >
                     </div>
@@ -268,12 +291,15 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('contactForm');
-            const nameInput = document.getElementById('name');
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
             const emailInput = document.getElementById('email');
             const messageInput = document.getElementById('message');
             const charCounter = document.getElementById('charCounter');
+            const gRecaptchaResponse = document.getElementById('gRecaptchaResponse');
             
-            const nameError = document.getElementById('nameError');
+            const firstNameError = document.getElementById('firstNameError');
+            const lastNameError = document.getElementById('lastNameError');
             const emailError = document.getElementById('emailError');
             const messageError = document.getElementById('messageError');
 
@@ -360,25 +386,35 @@
                 }, 4000);
             };
 
-            // Validation helper
+            // Robust Email Validation Helper
             const validateEmail = (email) => {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
             };
 
-            // Form Submit Handler with Google reCAPTCHA Enterprise Integration
+            // Form Submit Handler with official reCAPTCHA Enterprise execution & Web3Forms integration
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 triggerHaptic();
 
                 let isValid = true;
 
-                if (!nameInput.value.trim()) {
-                    nameError.classList.remove('hidden');
+                // Validate First Name
+                if (!firstNameInput.value.trim()) {
+                    firstNameError.classList.remove('hidden');
                     isValid = false;
                 } else {
-                    nameError.classList.add('hidden');
+                    firstNameError.classList.add('hidden');
                 }
 
+                // Validate Last Name
+                if (!lastNameInput.value.trim()) {
+                    lastNameError.classList.remove('hidden');
+                    isValid = false;
+                } else {
+                    lastNameError.classList.add('hidden');
+                }
+
+                // Validate Email
                 if (!validateEmail(emailInput.value.trim())) {
                     emailError.classList.remove('hidden');
                     isValid = false;
@@ -386,6 +422,7 @@
                     emailError.classList.add('hidden');
                 }
 
+                // Validate Message
                 if (messageInput.value.trim().length < 10) {
                     messageError.classList.remove('hidden');
                     isValid = false;
@@ -400,21 +437,34 @@
 
                 // Set Loading State
                 submitBtn.disabled = true;
-                btnText.textContent = 'Sending...';
+                btnText.textContent = 'Verifying & Sending...';
                 btnArrow.classList.add('hidden');
                 btnSpinner.classList.remove('hidden');
 
                 try {
-                    // Execute Google reCAPTCHA Enterprise
-                    let recaptchaToken = '';
+                    // Execute Google reCAPTCHA Enterprise and obtain token via callback/promise
+                    let token = '';
                     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
-                        recaptchaToken = await grecaptcha.enterprise.execute('6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV', { action: 'submit_contact' });
+                        token = await new Promise((resolve, reject) => {
+                            grecaptcha.enterprise.ready(async () => {
+                                try {
+                                    const t = await grecaptcha.enterprise.execute('6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV', { action: 'submit_contact' });
+                                    resolve(t);
+                                } catch (err) {
+                                    reject(err);
+                                }
+                            });
+                        });
                     }
 
-                    const formData = new FormData(form);
-                    if (recaptchaToken) {
-                        formData.append('recaptcha_token', recaptchaToken);
+                    if (!token) {
+                        throw new Error('reCAPTCHA verification failed to generate a token.');
                     }
+
+                    gRecaptchaResponse.value = token;
+
+                    // Build JSON payload matching Web3Forms API requirements
+                    const formData = new FormData(form);
                     const object = Object.fromEntries(formData);
                     const json = JSON.stringify(object);
 
@@ -438,7 +488,7 @@
                     }
                 } catch (error) {
                     console.error(error);
-                    showToast('Network error. Please check your connection.', 'error');
+                    showToast('Verification or network error. Please try again.', 'error');
                 } finally {
                     submitBtn.disabled = false;
                     btnText.textContent = 'Send Message';
