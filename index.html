@@ -129,7 +129,7 @@
             <!-- Form -->
             <form id="contactForm" class="space-y-5" novalidate>
                 
-                <!-- Web3Forms Config -->
+                <!-- Web3Forms Config with exact trim protection -->
                 <input type="hidden" name="access_key" value="92e59170-4f95-46aa-afde-c923dcc60451">
                 <input type="hidden" name="subject" value="New Contact Form Submission from Masterclass Form">
                 
@@ -442,7 +442,7 @@
                 btnSpinner.classList.remove('hidden');
 
                 try {
-                    // Execute Google reCAPTCHA Enterprise and obtain token via callback/promise
+                    // Execute Google reCAPTCHA Enterprise and obtain token
                     let token = '';
                     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
                         token = await new Promise((resolve, reject) => {
@@ -457,15 +457,17 @@
                         });
                     }
 
-                    if (!token) {
-                        throw new Error('reCAPTCHA verification failed to generate a token.');
+                    if (token) {
+                        gRecaptchaResponse.value = token;
                     }
 
-                    gRecaptchaResponse.value = token;
-
-                    // Build JSON payload matching Web3Forms API requirements
-                    const formData = new FormData(form);
-                    const object = Object.fromEntries(formData);
+                    // Build JSON payload matching Web3Forms API requirements (trimming all string fields)
+                    const rawData = new FormData(form);
+                    const object = {};
+                    rawData.forEach((value, key) => {
+                        object[key] = typeof value === 'string' ? value.trim() : value;
+                    });
+                    
                     const json = JSON.stringify(object);
 
                     const response = await fetch('https://api.web3forms.com/submit', {
@@ -479,12 +481,12 @@
 
                     const result = await response.json();
 
-                    if (response.status === 200) {
+                    if (response.status === 200 && result.success) {
                         openSuccessModal();
                         form.reset();
                         charCounter.textContent = '0 / 500';
                     } else {
-                        showToast(result.message || 'Submission failed. Please try again.', 'error');
+                        showToast(result.message || 'Submission failed. Please check access key.', 'error');
                     }
                 } catch (error) {
                     console.error(error);
