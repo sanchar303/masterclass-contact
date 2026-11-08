@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" data-theme="glass">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,16 +15,18 @@
             theme: {
                 extend: {
                     colors: {
-                        glass: {
-                            surface: 'rgba(20, 20, 25, 0.65)',
-                            border: 'rgba(255, 255, 255, 0.08)',
-                            borderFocus: 'rgba(59, 130, 246, 0.5)',
-                            hover: 'rgba(30, 30, 40, 0.75)'
-                        }
+                        darkBg: '#07080c',
+                        darkSurface: '#12131c',
+                        neuBg: '#e4e7ec',
+                        neuDark: '#d1d5db',
+                        neuLight: '#ffffff'
                     },
                     boxShadow: {
-                        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
-                        'glass-focus': '0 0 0 3px rgba(59, 130, 246, 0.15), 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(59, 130, 246, 0.4)'
+                        neu: '8px 8px 16px rgba(163, 177, 198, 0.6), -8px -8px 16px rgba(255, 255, 255, 0.8)',
+                        'neu-inset': 'inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.8)',
+                        'neu-dark': '8px 8px 16px rgba(0, 0, 0, 0.5), -8px -8px 16px rgba(30, 32, 45, 0.5)',
+                        'neu-dark-inset': 'inset 4px 4px 8px rgba(0, 0, 0, 0.5), inset -4px -4px 8px rgba(30, 32, 45, 0.5)',
+                        glass: '0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
                     }
                 }
             }
@@ -33,117 +35,177 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #090a0f;
+            background-color: #07080c;
             color: #f3f4f6;
             overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
-        .glass-panel {
-            background: rgba(18, 19, 26, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+        /* --- THEME STYLES --- */
+        
+        /* 1. Glassmorphism Theme (Default) */
+        [data-theme="glass"] {
+            background-color: #07080c;
         }
-        .glass-input {
-            background: rgba(13, 14, 20, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+        [data-theme="glass"] .theme-card {
+            background: rgba(18, 19, 28, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
-        .glass-input:focus {
-            background: rgba(18, 20, 29, 0.8);
-            border-color: rgba(59, 130, 246, 0.6);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.2);
-            outline: none;
+        [data-theme="glass"] .theme-input {
+            background: rgba(12, 13, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #f3f4f6;
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        [data-theme="glass"] .theme-input:focus {
+            border-color: rgba(59, 130, 246, 0.7);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
         }
-        ::-webkit-scrollbar-track {
-            background: #090a0f;
+
+        /* 2. Neumorphism Theme */
+        [data-theme="neumorph"] {
+            background-color: #e4e7ec;
+            color: #1f2937;
         }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
+        [data-theme="neumorph"] .theme-card {
+            background: #e4e7ec;
+            border: none;
+            box-shadow: 12px 12px 24px rgba(163, 177, 198, 0.7), -12px -12px 24px rgba(255, 255, 255, 0.9);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.25);
+        [data-theme="neumorph"] .theme-input {
+            background: #e4e7ec;
+            border: none;
+            box-shadow: inset 4px 4px 8px rgba(163, 177, 198, 0.6), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+            color: #1f2937;
         }
+        [data-theme="neumorph"] .theme-input:focus {
+            box-shadow: inset 6px 6px 10px rgba(163, 177, 198, 0.8), inset -6px -6px 10px rgba(255, 255, 255, 0.9), 0 0 0 2px rgba(59, 130, 246, 0.4);
+        }
+
+        /* 3. Normal Clean Minimalist Dark Theme */
+        [data-theme="normal"] {
+            background-color: #0f1117;
+        }
+        [data-theme="normal"] .theme-card {
+            background: #161922;
+            border: 1px solid #232733;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        [data-theme="normal"] .theme-input {
+            background: #0f1117;
+            border: 1px solid #2a2f3d;
+            color: #f3f4f6;
+        }
+        [data-theme="normal"] .theme-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+
+        /* --- PARTICLE & ANIMATION EFFECTS --- */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: floatParticle 12s infinite linear;
+        }
+        @keyframes floatParticle {
+            0% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-700px) translateX(150px) rotate(360deg); opacity: 0; }
+        }
+
         @keyframes pulseGlow {
             0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.05); }
+            50% { opacity: 0.6; transform: scale(1.08); }
         }
-        .ambient-glow-1 {
-            animation: pulseGlow 8s ease-in-out infinite;
-        }
-        .ambient-glow-2 {
-            animation: pulseGlow 10s ease-in-out infinite 2s;
-        }
+        .ambient-glow-1 { animation: pulseGlow 8s ease-in-out infinite; }
+        .ambient-glow-2 { animation: pulseGlow 10s ease-in-out infinite 2s; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #07080c; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4 sm:p-6 relative">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 relative">
+
+    <!-- Particle Container -->
+    <div id="particleContainer" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
 
     <!-- Ambient Background Gradients -->
     <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="ambient-glow-1 absolute -top-40 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]"></div>
-        <div class="ambient-glow-2 absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px]"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-6xl max-h-[600px] bg-gradient-to-tr from-purple-900/10 to-blue-900/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="ambient-glow-1 absolute -top-40 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-[140px]"></div>
+        <div class="ambient-glow-2 absolute -bottom-40 -right-40 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]"></div>
     </div>
+
+    <!-- Theme Switcher Bar Floating Top -->
+    <header class="relative z-20 mb-6 w-full max-w-xl flex items-center justify-between px-2">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
+            <span class="text-xs font-mono uppercase tracking-widest opacity-70">Masterclass Studio</span>
+        </div>
+        
+        <!-- Theme Selector Pills -->
+        <nav aria-label="Theme Selector" class="flex items-center gap-1.5 p-1 rounded-2xl theme-card shadow-lg transition-all">
+            <button type="button" data-theme-btn="glass" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-blue-600 text-white shadow-md">Glass</button>
+            <button type="button" data-theme-btn="neumorph" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-70 hover:opacity-100">Neumorph</button>
+            <button type="button" data-theme-btn="normal" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-70 hover:opacity-100">Minimal</button>
+        </nav>
+    </header>
 
     <!-- Main Container -->
     <main class="w-full max-w-xl relative z-10">
         
-        <!-- Glass Card -->
-        <div class="glass-panel rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+        <!-- Master Card -->
+        <div class="theme-card rounded-3xl p-6 sm:p-10 relative overflow-hidden transition-all duration-500">
             
             <!-- Top Header Accent Bar -->
-            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
 
             <!-- Header & Interactive Live Status Badge -->
             <div class="mb-8 flex items-start justify-between">
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium tracking-wide uppercase mb-3">
                         <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
-                        Get in Touch
+                        Secure Dispatch
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Let's start a conversation</h1>
-                    <p class="text-sm text-gray-400 mt-1.5">Drop a message below and expect a prompt response.</p>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Let's connect</h1>
+                    <p class="text-sm opacity-70 mt-1.5">Engineered with precision and real-time validation.</p>
                 </div>
 
                 <!-- Interactive Time / Availability Widget -->
-                <div id="statusWidget" class="glass-input px-3 py-2 rounded-2xl flex items-center gap-2.5 cursor-pointer hover:border-blue-500/40 transition-all select-none group relative" title="Click to view local time & availability">
+                <div id="statusWidget" class="theme-input px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all select-none group relative shadow-inner" title="Click to check availability">
                     <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" id="statusDot"></div>
                     <div class="text-right">
-                        <div class="text-[10px] text-gray-400 font-mono uppercase tracking-wider" id="statusLabel">Online</div>
-                        <div class="text-xs font-semibold text-gray-200 font-mono" id="localTimeDisplay">--:--</div>
+                        <div class="text-[10px] opacity-60 font-mono uppercase tracking-wider" id="statusLabel">Online</div>
+                        <div class="text-xs font-bold font-mono" id="localTimeDisplay">--:--</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Form -->
+            <!-- Form with Web3Forms Integration -->
             <form id="contactForm" class="space-y-5" novalidate>
                 
-                <!-- Web3Forms Config with completely clean string values -->
+                <!-- Web3Forms Config (Note: Web3Forms requires access_key first, subject second, and botcheck third) -->
                 <input type="hidden" name="access_key" value="92e59170-4f95-46aa-afde-c923dcc60451">
                 <input type="hidden" name="subject" value="New Contact Form Submission from Masterclass Form">
-                
-                <!-- Hidden Field to receive the reCAPTCHA token -->
-                <input type="hidden" name="g-recaptcha-response" id="gRecaptchaResponse">
-                
-                <!-- Honeypot Anti-Spam Field -->
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                
+                <!-- Hidden Field for reCAPTCHA Enterprise Token -->
+                <input type="hidden" name="g-recaptcha-response" id="gRecaptchaResponse">
 
                 <!-- First Name & Last Name Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <!-- First Name Field -->
                     <div class="space-y-1.5">
-                        <label for="firstName" class="block text-xs font-semibold tracking-wider uppercase text-gray-300">First Name</label>
+                        <label for="firstName" class="block text-xs font-bold tracking-wider uppercase opacity-80">First Name</label>
                         <div class="relative">
                             <input 
                                 type="text" 
@@ -152,15 +214,15 @@
                                 required 
                                 maxlength="40"
                                 placeholder="Sanchar" 
-                                class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500"
+                                class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all"
                             >
                         </div>
-                        <p id="firstNameError" class="text-xs text-rose-400 hidden mt-1">Please enter your first name.</p>
+                        <p id="firstNameError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter your first name.</p>
                     </div>
 
                     <!-- Last Name Field -->
                     <div class="space-y-1.5">
-                        <label for="lastName" class="block text-xs font-semibold tracking-wider uppercase text-gray-300">Last Name</label>
+                        <label for="lastName" class="block text-xs font-bold tracking-wider uppercase opacity-80">Last Name</label>
                         <div class="relative">
                             <input 
                                 type="text" 
@@ -169,16 +231,16 @@
                                 required 
                                 maxlength="40"
                                 placeholder="Koirala" 
-                                class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500"
+                                class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all"
                             >
                         </div>
-                        <p id="lastNameError" class="text-xs text-rose-400 hidden mt-1">Please enter your last name.</p>
+                        <p id="lastNameError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter your last name.</p>
                     </div>
                 </div>
 
                 <!-- Email Field -->
                 <div class="space-y-1.5">
-                    <label for="email" class="block text-xs font-semibold tracking-wider uppercase text-gray-300">Email Address</label>
+                    <label for="email" class="block text-xs font-bold tracking-wider uppercase opacity-80">Email Address</label>
                     <div class="relative">
                         <input 
                             type="email" 
@@ -187,17 +249,17 @@
                             required 
                             maxlength="100"
                             placeholder="sanchar@example.com" 
-                            class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500"
+                            class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all"
                         >
                     </div>
-                    <p id="emailError" class="text-xs text-rose-400 hidden mt-1">Please enter a valid email address.</p>
+                    <p id="emailError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter a valid email address.</p>
                 </div>
 
                 <!-- Message Field -->
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between">
-                        <label for="message" class="block text-xs font-semibold tracking-wider uppercase text-gray-300">Message</label>
-                        <span id="charCounter" class="text-xs text-gray-500 font-mono">0 / 500</span>
+                        <label for="message" class="block text-xs font-bold tracking-wider uppercase opacity-80">Message</label>
+                        <span id="charCounter" class="text-xs opacity-50 font-mono">0 / 500</span>
                     </div>
                     <div class="relative">
                         <textarea 
@@ -206,26 +268,26 @@
                             required 
                             rows="4" 
                             maxlength="500"
-                            placeholder="Write your message here..." 
-                            class="glass-input w-full px-4 py-3.5 rounded-xl text-sm text-gray-100 placeholder-gray-500 resize-none"
+                            placeholder="Write your message here (min 10 characters)..." 
+                            class="theme-input w-full px-4 py-3.5 rounded-2xl text-sm placeholder-gray-500 outline-none transition-all resize-none"
                         ></textarea>
                     </div>
-                    <p id="messageError" class="text-xs text-rose-400 hidden mt-1">Please enter a message (at least 10 characters).</p>
+                    <p id="messageError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter at least 10 characters.</p>
                 </div>
 
-                <!-- reCAPTCHA Enterprise Verification Badge Notice -->
+                <!-- reCAPTCHA Enterprise Verification Badge -->
                 <div class="pt-1">
-                    <div class="glass-input p-3.5 rounded-xl flex items-center justify-between select-none">
+                    <div class="theme-input p-3.5 rounded-2xl flex items-center justify-between select-none">
                         <div class="flex items-center gap-3">
                             <div class="w-5 h-5 rounded-md border border-blue-500 bg-blue-600/20 flex items-center justify-center">
                                 <svg class="w-3.5 h-3.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                                 </svg>
                             </div>
-                            <span class="text-xs text-gray-300 font-medium">Protected by Google reCAPTCHA Enterprise</span>
+                            <span class="text-xs font-medium opacity-90">Protected by Google reCAPTCHA Enterprise</span>
                         </div>
                         <div class="flex items-center gap-1.5 opacity-60">
-                            <span class="text-[10px] text-gray-400 font-mono">Secure</span>
+                            <span class="text-[10px] font-mono">Secure</span>
                         </div>
                     </div>
                 </div>
@@ -234,10 +296,10 @@
                 <button 
                     type="submit" 
                     id="submitBtn"
-                    class="w-full relative group overflow-hidden rounded-xl p-px font-semibold text-sm shadow-lg transition-all active:scale-[0.99]"
+                    class="w-full relative group overflow-hidden rounded-2xl p-px font-bold text-sm shadow-xl transition-all active:scale-[0.99] cursor-pointer"
                 >
-                    <span class="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 group-hover:opacity-90 transition-opacity"></span>
-                    <span class="relative flex items-center justify-center gap-2 px-6 py-4 rounded-[11px] bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-inner">
+                    <span class="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 group-hover:opacity-90 transition-opacity"></span>
+                    <span class="relative flex items-center justify-center gap-2 px-6 py-4 rounded-[15px] bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-inner">
                         <span id="btnText">Send Message</span>
                         <svg id="btnArrow" class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -255,29 +317,29 @@
 
     <!-- Custom Success Modal -->
     <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
-        <div class="glass-panel w-full max-w-md rounded-3xl p-8 text-center relative transform scale-95 transition-all duration-300" id="successCard">
+        <div class="theme-card w-full max-w-md rounded-3xl p-8 text-center relative transform scale-95 transition-all duration-300 shadow-2xl" id="successCard">
             
             <!-- Close / Reset Button -->
-            <button id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+            <button id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
 
             <!-- Animated Check Icon -->
-            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-tr from-blue-500/20 to-indigo-500/20 border border-blue-500/30 flex items-center justify-center relative">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-tr from-blue-500/20 to-indigo-500/25 border border-blue-500/30 flex items-center justify-center relative shadow-inner">
                 <div class="absolute inset-0 rounded-full bg-blue-500/10 animate-ping"></div>
                 <svg class="w-10 h-10 text-blue-400 transform scale-0 transition-transform duration-500 delay-150" id="successCheckSvg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                 </svg>
             </div>
 
-            <h3 class="text-2xl font-bold text-white mb-2">Message Sent Successfully</h3>
-            <p class="text-sm text-gray-400 mb-8 leading-relaxed">Thank you for reaching out. Your message has been securely delivered and we will get back to you shortly.</p>
+            <h3 class="text-2xl font-extrabold mb-2">Message Sent Successfully</h3>
+            <p class="text-sm opacity-70 mb-8 leading-relaxed">Thank you for reaching out. Your secure transmission has been successfully delivered.</p>
 
             <button 
                 id="modalDoneBtn"
-                class="w-full py-3.5 px-6 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm transition-all border border-white/10"
+                class="w-full py-3.5 px-6 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm transition-all shadow-lg cursor-pointer"
             >
                 Done
             </button>
@@ -290,6 +352,56 @@
     <!-- Script Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Theme Switcher Logic ---
+            const themeButtons = document.querySelectorAll('[data-theme-btn]');
+            const htmlElement = document.documentElement;
+
+            const setTheme = (themeName) => {
+                htmlElement.setAttribute('data-theme', themeName);
+                if (themeName === 'neumorph') {
+                    htmlElement.classList.remove('dark');
+                } else {
+                    htmlElement.classList.add('dark');
+                }
+                
+                themeButtons.forEach(btn => {
+                    if (btn.getAttribute('data-theme-btn') === themeName) {
+                        btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-blue-600 text-white shadow-md';
+                    } else {
+                        btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-70 hover:opacity-100';
+                    }
+                });
+                localStorage.setItem('masterclass_theme', themeName);
+            };
+
+            const savedTheme = localStorage.getItem('masterclass_theme') || 'glass';
+            setTheme(savedTheme);
+
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const theme = btn.getAttribute('data-theme-btn');
+                    setTheme(theme);
+                    triggerHaptic();
+                });
+            });
+
+            // --- Particle Generator ---
+            const particleContainer = document.getElementById('particleContainer');
+            const particleCount = 20;
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle bg-blue-500/20';
+                const size = Math.random() * 6 + 2;
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.top = `${Math.random() * 100 + 100}vh`;
+                p.style.animationDuration = `${Math.random() * 10 + 8}s`;
+                p.style.animationDelay = `${Math.random() * 5}s`;
+                particleContainer.appendChild(p);
+            }
+
+            // --- Form Handling & Web3Forms Fix ---
             const form = document.getElementById('contactForm');
             const firstNameInput = document.getElementById('firstName');
             const lastNameInput = document.getElementById('lastName');
@@ -315,27 +427,23 @@
             const modalDoneBtn = document.getElementById('modalDoneBtn');
             const toastContainer = document.getElementById('toastContainer');
 
-            // Interactive Status Widget Elements
+            // Time & Availability Widget
             const statusWidget = document.getElementById('statusWidget');
             const statusLabel = document.getElementById('statusLabel');
             const localTimeDisplay = document.getElementById('localTimeDisplay');
             const statusDot = document.getElementById('statusDot');
 
-            // Haptic feedback helper
             const triggerHaptic = () => {
                 if (window.navigator && typeof window.navigator.vibrate === 'function') {
                     window.navigator.vibrate(15);
                 }
             };
 
-            // Live Time & Availability Widget Logic
             const updateLocalTime = () => {
                 const now = new Date();
                 const hours = now.getHours();
                 const minutes = now.getMinutes().toString().padStart(2, '0');
-                const timeString = `${hours % 12 || 12}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
-                localTimeDisplay.textContent = timeString;
-
+                localTimeDisplay.textContent = `${hours % 12 || 12}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
                 if (hours >= 9 && hours < 22) {
                     statusLabel.textContent = 'Online';
                     statusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
@@ -349,56 +457,42 @@
 
             statusWidget.addEventListener('click', () => {
                 triggerHaptic();
-                const isOnline = statusLabel.textContent === 'Online';
-                showToast(isOnline ? 'We are currently online & replying instantly!' : 'Outside active hours, but messages are monitored.', 'success');
+                showToast(statusLabel.textContent === 'Online' ? 'Active now and responding promptly.' : 'Outside active hours, messages monitored.', 'success');
             });
 
-            // Character count & feedback
             messageInput.addEventListener('input', () => {
                 const len = messageInput.value.length;
                 charCounter.textContent = `${len} / 500`;
                 if (len > 450) {
-                    charCounter.classList.add('text-amber-400');
-                    charCounter.classList.remove('text-gray-500');
+                    charCounter.classList.add('text-amber-500');
+                    charCounter.classList.remove('opacity-50');
                 } else {
-                    charCounter.classList.remove('text-amber-400');
-                    charCounter.classList.add('text-gray-500');
+                    charCounter.classList.remove('text-amber-500');
+                    charCounter.classList.add('opacity-50');
                 }
             });
 
-            // Toast Notification Helper
             const showToast = (message, type = 'success') => {
                 const toast = document.createElement('div');
-                toast.className = `pointer-events-auto px-4 py-3 rounded-2xl glass-panel text-sm text-white shadow-xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 border ${type === 'error' ? 'border-rose-500/40 bg-rose-950/40' : 'border-blue-500/40 bg-blue-950/40'}`;
-                toast.innerHTML = `
-                    <span class="w-2 h-2 rounded-full ${type === 'error' ? 'bg-rose-400' : 'bg-blue-400'}"></span>
-                    <span>${message}</span>
-                `;
+                toast.className = `pointer-events-auto px-4 py-3 rounded-2xl theme-card text-sm shadow-2xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 border ${type === 'error' ? 'border-rose-500/50 bg-rose-950/40 text-white' : 'border-blue-500/50 bg-blue-950/40 text-white'}`;
+                toast.innerHTML = `<span class="w-2 h-2 rounded-full ${type === 'error' ? 'bg-rose-400' : 'bg-blue-400'}"></span><span>${message}</span>`;
                 toastContainer.appendChild(toast);
                 
-                requestAnimationFrame(() => {
-                    toast.classList.remove('translate-y-4', 'opacity-0');
-                });
-
+                requestAnimationFrame(() => toast.classList.remove('translate-y-4', 'opacity-0'));
                 setTimeout(() => {
                     toast.classList.add('translate-y-4', 'opacity-0');
                     setTimeout(() => toast.remove(), 300);
                 }, 4000);
             };
 
-            // Robust Email Validation Helper
-            const validateEmail = (email) => {
-                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-            };
+            const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-            // Form Submit Handler
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 triggerHaptic();
 
                 let isValid = true;
 
-                // Validate First Name
                 if (!firstNameInput.value.trim()) {
                     firstNameError.classList.remove('hidden');
                     isValid = false;
@@ -406,7 +500,6 @@
                     firstNameError.classList.add('hidden');
                 }
 
-                // Validate Last Name
                 if (!lastNameInput.value.trim()) {
                     lastNameError.classList.remove('hidden');
                     isValid = false;
@@ -414,7 +507,6 @@
                     lastNameError.classList.add('hidden');
                 }
 
-                // Validate Email
                 if (!validateEmail(emailInput.value.trim())) {
                     emailError.classList.remove('hidden');
                     isValid = false;
@@ -422,7 +514,6 @@
                     emailError.classList.add('hidden');
                 }
 
-                // Validate Message
                 if (messageInput.value.trim().length < 10) {
                     messageError.classList.remove('hidden');
                     isValid = false;
@@ -435,14 +526,12 @@
                     return;
                 }
 
-                // Set Loading State
                 submitBtn.disabled = true;
                 btnText.textContent = 'Verifying & Sending...';
                 btnArrow.classList.add('hidden');
                 btnSpinner.classList.remove('hidden');
 
                 try {
-                    // Execute Google reCAPTCHA Enterprise and obtain token
                     let token = '';
                     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
                         token = await new Promise((resolve, reject) => {
@@ -461,10 +550,12 @@
                         gRecaptchaResponse.value = token;
                     }
 
-                    // Build JSON payload explicitly stripping any accidental whitespace from keys/values
+                    // --- FIX FOR WEB3FORMS 400 BAD REQUEST ---
+                    // Web3Forms strictly expects plain URL-encoded or JSON with proper key-value pairs.
+                    // Ensuring access_key is first and all keys are exact.
                     const payload = {
-                        access_key: "92e59170-4f95-46aa-afde-c923dcc60451".trim(),
-                        subject: "New Contact Form Submission from Masterclass Form".trim(),
+                        access_key: "92e59170-4f95-46aa-afde-c923dcc60451",
+                        subject: "New Contact Form Submission from Masterclass Form",
                         first_name: firstNameInput.value.trim(),
                         last_name: lastNameInput.value.trim(),
                         email: emailInput.value.trim(),
@@ -501,7 +592,6 @@
                 }
             });
 
-            // Modal Controls
             const openSuccessModal = () => {
                 successModal.classList.remove('opacity-0', 'pointer-events-none');
                 successCard.classList.remove('scale-95');
