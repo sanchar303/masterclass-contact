@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass Contact — Sanchar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    },
+                    colors: {
+                        glass: {
+                            dark: 'rgba(18, 18, 24, 0.65)',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            borderFocus: 'rgba(139, 92, 246, 0.6)',
+                        }
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)',
+                        'glow': '0 0 25px -5px rgba(139, 92, 246, 0.35)',
+                        'glow-error': '0 0 25px -5px rgba(239, 68, 68, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- hCaptcha Script -->
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <style>
+        /* Custom smooth focus transitions and glass backdrops */
+        .glass-panel {
+            background: rgba(18, 18, 26, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-input:focus {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(139, 92, 246, 0.7);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15), 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Ambient background glow spheres */
+        @keyframes floatSlow {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(30px, -40px) scale(1.1); }
+        }
+        @keyframes floatReverse {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(-40px, 30px) scale(0.95); }
+        }
+        .animate-float-1 { animation: floatSlow 12s ease-in-out infinite; }
+        .animate-float-2 { animation: floatReverse 15s ease-in-out infinite; }
+
+        /* Checkmark stroke animation */
+        @keyframes strokeCheck {
+            to { stroke-dashoffset: 0; }
+        }
+        .animate-checkmark {
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: strokeCheck 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0b0b10; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.25); }
+    </style>
+</head>
+<body class="bg-[#09090e] text-slate-100 min-h-screen font-sans selection:bg-purple-500 selection:text-white relative overflow-x-hidden flex flex-col justify-between">
+
+    <!-- Ambient Background Radial Lighting -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-[20%] -left-[10%] w-[600px] h-[600px] rounded-full bg-purple-600/15 blur-[120px] animate-float-1"></div>
+        <div class="absolute top-[40%] -right-[10%] w-[700px] h-[700px] rounded-full bg-indigo-600/12 blur-[140px] animate-float-2"></div>
+        <div class="absolute -bottom-[20%] left-[20%] w-[500px] h-[500px] rounded-full bg-violet-600/10 blur-[130px]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#09090e]/80 to-[#09090e]"></div>
+    </div>
+
+    <!-- Header / Navigation Bar -->
+    <header class="relative z-10 w-full max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+                </svg>
+            </div>
+            <span class="font-semibold tracking-tight text-lg text-slate-200">Sanchar<span class="text-purple-400">.workspace</span></span>
+        </div>
+        <div class="flex items-center space-x-2 text-xs font-medium px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Secure Web3Forms Relay</span>
+        </div>
+    </header>
+
+    <!-- Main Contact Container -->
+    <main class="relative z-10 w-full max-w-2xl mx-auto px-4 py-8 flex-grow flex items-center justify-center">
+        <div class="w-full glass-panel rounded-3xl p-8 sm:p-10 shadow-glass border border-white/10 relative overflow-hidden">
+            
+            <!-- Top Subtle Shimmer Border -->
+            <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+
+            <!-- Heading Section -->
+            <div class="mb-8 text-center sm:text-left">
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">Let's build something exceptional.</h1>
+                <p class="text-slate-400 text-sm sm:text-base">Have a project in mind, an inquiry, or just want to connect? Drop a message below.</p>
+            </div>
+
+            <!-- Contact Form (Web3Forms Integrated) -->
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-6" novalidate>
+                
+                <!-- Web3Forms Access Key -->
+                <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+                <input type="hidden" name="subject" value="New Contact Form Submission from Sanchar Workspace">
+                <input type="hidden" name="from_name" value="Sanchar Contact Portal">
+
+                <!-- Invisible Honeypot Spam Protection Field -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                <!-- Grid Inputs for Name & Email -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Full Name -->
+                    <div class="space-y-2">
+                        <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Your Name <span class="text-purple-400">*</span></label>
+                        <div class="relative">
+                            <input type="text" id="name" name="name" required placeholder="Alex Mercer"
+                                class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none">
+                        </div>
+                        <p id="nameError" class="text-xs text-red-400 hidden">Please enter your name.</p>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="space-y-2">
+                        <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Email Address <span class="text-purple-400">*</span></label>
+                        <div class="relative">
+                            <input type="email" id="email" name="email" required placeholder="alex@company.com"
+                                class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none">
+                        </div>
+                        <p id="emailError" class="text-xs text-red-400 hidden">Please enter a valid email address.</p>
+                    </div>
+                </div>
+
+                <!-- Subject / Project Type -->
+                <div class="space-y-2">
+                    <label for="topic" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Inquiry Subject</label>
+                    <div class="relative">
+                        <select id="topic" name="topic"
+                            class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 text-sm border border-white/10 focus:outline-none appearance-none cursor-pointer bg-[#12121a]/80">
+                            <option value="General Inquiry" class="bg-[#12121a] text-slate-200">General Inquiry</option>
+                            <option value="Project Collaboration" class="bg-[#12121a] text-slate-200">Project Collaboration</option>
+                            <option value="Engineering Consultation" class="bg-[#12121a] text-slate-200">Engineering Consultation</option>
+                            <option value="Design Systems" class="bg-[#12121a] text-slate-200">Design Systems & UI/UX</option>
+                        </select>
+                        <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message with Live Character Count -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-300">Your Message <span class="text-purple-400">*</span></label>
+                        <span id="charCounter" class="text-xs font-mono text-slate-400 transition-colors duration-200">0 / 500</span>
+                    </div>
+                    <div class="relative">
+                        <textarea id="message" name="message" rows="5" required maxlength="500" placeholder="Tell me about your project, timeline, and technical scope..."
+                            class="w-full px-4 py-3.5 rounded-xl glass-input text-slate-100 placeholder-slate-500 text-sm border border-white/10 focus:outline-none resize-none"></textarea>
+                    </div>
+                    <p id="messageError" class="text-xs text-red-400 hidden">Message must be at least 10 characters.</p>
+                </div>
+
+                <!-- hCaptcha Widget Container -->
+                <div class="pt-2 flex justify-center sm:justify-start">
+                    <div class="h-captcha" data-sitekey="55b6329e-2605-4f30-b9eb-03316f3d9b43" data-theme="dark"></div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="pt-4">
+                    <button type="submit" id="submitBtn"
+                        class="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 text-white font-medium text-sm tracking-wide shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 flex items-center justify-center space-x-2 group cursor-pointer border border-purple-400/20">
+                        <span id="btnText">Send Secure Message</span>
+                        <svg id="btnIcon" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                        <svg id="btnSpinner" class="w-5 h-5 animate-spin hidden text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 w-full max-w-5xl mx-auto px-6 py-8 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between border-t border-white/5">
+        <p>&copy; 2026 Sanchar. All rights reserved.</p>
+        <div class="flex items-center space-x-6 mt-4 sm:mt-0">
+            <span class="hover:text-purple-400 transition-colors">Encrypted Relay</span>
+            <span class="hover:text-purple-400 transition-colors">Dark Glass Architecture</span>
+        </div>
+    </footer>
+
+    <!-- Custom Success Modal (Morphing Animation & Confetti Trigger) -->
+    <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div id="modalCard" class="w-full max-w-md glass-panel rounded-3xl p-8 shadow-2xl border border-white/15 transform scale-95 transition-all duration-300 text-center relative overflow-hidden">
+            
+            <!-- Confetti Canvas overlay inside modal -->
+            <canvas id="confettiCanvas" class="absolute inset-0 pointer-events-none w-full h-full z-0"></canvas>
+
+            <div class="relative z-10 flex flex-col items-center">
+                <!-- Checkmark Animated Circle -->
+                <div class="w-20 h-20 rounded-full bg-purple-500/20 border border-purple-500/40 flex items-center justify-center mb-6 shadow-glow">
+                    <svg class="w-10 h-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path class="animate-checkmark" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+
+                <h3 class="text-2xl font-bold text-white mb-2">Message Dispatched!</h3>
+                <p class="text-slate-300 text-sm mb-8 leading-relaxed">Thank you for reaching out. Your secure transmission has been successfully delivered. I will respond promptly.</p>
+
+                <button id="closeModalBtn"
+                    class="w-full py-3.5 px-6 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm transition-all border border-white/10 cursor-pointer shadow-md">
+                    Return to Portal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification System -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-3 pointer-events-none"></div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const charCounter = document.getElementById('charCounter');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            const successModal = document.getElementById('successModal');
+            const modalCard = document.getElementById('modalCard');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const toastContainer = document.getElementById('toastContainer');
+
+            // Haptic feedback helper
+            const triggerHaptic = (pattern = 15) => {
+                if ('vibrate' in navigator) {
+                    try {
+                        navigator.vibrate(pattern);
+                    } catch (e) {
+                        // Ignore if permission denied or unsupported context
+                    }
+                }
+            };
+
+            // Toast notification generator
+            const showToast = (message, type = 'info') => {
+                const toast = document.createElement('div');
+                toast.className = `pointer-events-auto flex items-center space-x-3 px-4 py-3 rounded-2xl glass-panel text-sm text-white shadow-xl border transition-all duration-300 transform translate-y-4 opacity-0`;
+                
+                if (type === 'success') {
+                    toast.classList.add('border-emerald-500/40', 'bg-emerald-950/40');
+                    toast.innerHTML = `<svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>${message}</span>`;
+                } else if (type === 'error') {
+                    toast.classList.add('border-red-500/40', 'bg-red-950/40');
+                    toast.innerHTML = `<svg class="w-5 h-5 text-red-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg><span>${message}</span>`;
+                } else {
+                    toast.classList.add('border-purple-500/40');
+                    toast.innerHTML = `<svg class="w-5 h-5 text-purple-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span>${message}</span>`;
+                }
+
+                toastContainer.appendChild(toast);
+                requestAnimationFrame(() => {
+                    toast.classList.remove('translate-y-4', 'opacity-0');
+                });
+
+                setTimeout(() => {
+                    toast.classList.add('translate-y-4', 'opacity-0');
+                    setTimeout(() => toast.remove(), 350);
+                }, 4000);
+            };
+
+            // Input focus haptic & glow effects
+            const inputs = [nameInput, emailInput, messageInput, document.getElementById('topic')];
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    triggerHaptic(10);
+                });
+            });
+
+            // Live Character Limit Counter & Dynamic States (80% warning, 100% error)
+            const maxLength = 500;
+            messageInput.addEventListener('input', (e) => {
+                const currentLength = e.target.value.length;
+                charCounter.textContent = `${currentLength} / ${maxLength}`;
+
+                const percentage = currentLength / maxLength;
+                if (percentage >= 1.0) {
+                    charCounter.className = 'text-xs font-mono text-red-400 font-bold';
+                    triggerHaptic([30, 50, 30]);
+                } else if (percentage >= 0.8) {
+                    charCounter.className = 'text-xs font-mono text-amber-400 font-semibold';
+                    if (currentLength % 10 === 0) triggerHaptic(15);
+                } else {
+                    charCounter.className = 'text-xs font-mono text-slate-400';
+                }
+            });
+
+            // Form Validation & Submission Handling
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                triggerHaptic(25);
+
+                // Basic validation checks
+                let isValid = true;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                if (!nameInput.value.trim()) {
+                    document.getElementById('nameError').classList.remove('hidden');
+                    nameInput.classList.add('border-red-500/60');
+                    isValid = false;
+                } else {
+                    document.getElementById('nameError').classList.add('hidden');
+                    nameInput.classList.remove('border-red-500/60');
+                }
+
+                if (!emailInput.value.trim() || !emailRegex.test(emailInput.value)) {
+                    document.getElementById('emailError').classList.remove('hidden');
+                    emailInput.classList.add('border-red-500/60');
+                    isValid = false;
+                } else {
+                    document.getElementById('emailError').classList.add('hidden');
+                    emailInput.classList.remove('border-red-500/60');
+                }
+
+                if (messageInput.value.trim().length < 10) {
+                    document.getElementById('messageError').classList.remove('hidden');
+                    messageInput.classList.add('border-red-500/60');
+                    isValid = false;
+                } else {
+                    document.getElementById('messageError').classList.add('hidden');
+                    messageInput.classList.remove('border-red-500/60');
+                }
+
+                if (!isValid) {
+                    showToast('Please correct the highlighted fields.', 'error');
+                    return;
+                }
+
+                // Check honeypot
+                const botcheckField = form.querySelector('input[name="botcheck"]');
+                if (botcheckField && botcheckField.checked) {
+                    showToast('Bot detection triggered.', 'error');
+                    return;
+                }
+
+                // UI Loading State
+                submitBtn.disabled = true;
+                btnText.textContent = 'Transmitting...';
+                btnIcon.classList.add('hidden');
+                btnSpinner.classList.remove('hidden');
+
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                try {
+                    const response = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: json
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.status === 200) {
+                        triggerHaptic([50, 100, 50]);
+                        openSuccessModal();
+                        form.reset();
+                        charCounter.textContent = `0 / ${maxLength}`;
+                        if (window.hcaptcha) {
+                            try { hcaptcha.reset(); } catch (err) {}
+                        }
+                    } else {
+                        throw new Error(result.message || 'Submission failed');
+                    }
+                } catch (error) {
+                    triggerHaptic([40, 40, 40]);
+                    showToast(error.message || 'Network transmission error. Please try again.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Send Secure Message';
+                    btnIcon.classList.remove('hidden');
+                    btnSpinner.classList.add('hidden');
+                }
+            });
+
+            // Success Modal Controller with Confetti Animation
+            function openSuccessModal() {
+                successModal.classList.remove('opacity-0', 'pointer-events-none');
+                modalCard.classList.remove('scale-95');
+                modalCard.classList.add('scale-100');
+                runConfetti();
+            }
+
+            function closeSuccessModal() {
+                successModal.classList.add('opacity-0', 'pointer-events-none');
+                modalCard.classList.remove('scale-100');
+                modalCard.classList.add('scale-95');
+            }
+
+            closeModalBtn.addEventListener('click', () => {
+                triggerHaptic(15);
+                closeSuccessModal();
+            });
+
+            successModal.addEventListener('click', (e) => {
+                if (e.target === successModal) {
+                    closeSuccessModal();
+                }
+            });
+
+            // Lightweight Confetti Particle Engine
+            function runConfetti() {
+                const canvas = document.getElementById('confettiCanvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+
+                let particles = [];
+                const colors = ['#8b5cf6', '#a855f7', '#6366f1', '#ec4899', '#38bdf8'];
+
+                for (let i = 0; i < 50; i++) {
+                    particles.push({
+                        x: canvas.width / 2,
+                        y: canvas.height / 2,
+                        vx: (Math.random() - 0.5) * 8,
+                        vy: (Math.random() - 0.7) * 8,
+                        size: Math.random() * 6 + 3,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        alpha: 1,
+                        decay: Math.random() * 0.015 + 0.01
+                    });
+                }
+
+                function animateConfetti() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    let activeCount = 0;
+
+                    particles.forEach(p => {
+                        if (p.alpha > 0) {
+                            activeCount++;
+                            p.x += p.vx;
+                            p.y += p.vy;
+                            p.vy += 0.2; // gravity
+                            p.alpha -= p.decay;
+
+                            ctx.save();
+                            ctx.globalAlpha = Math.max(0, p.alpha);
+                            ctx.fillStyle = p.color;
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.restore();
+                        }
+                    });
+
+                    if (activeCount > 0) {
+                        requestAnimationFrame(animateConfetti);
+                    }
+                }
+
+                animateConfetti();
+            }
+        });
+    </script>
+</body>
+</html>
