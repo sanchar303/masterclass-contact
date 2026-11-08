@@ -7,6 +7,8 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google reCAPTCHA Enterprise API -->
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -188,24 +190,21 @@
                     <p id="messageError" class="text-xs text-rose-400 hidden mt-1">Please enter a message (at least 10 characters).</p>
                 </div>
 
-                <!-- Simulated Verification Check -->
+                <!-- reCAPTCHA Enterprise Verification Badge Notice -->
                 <div class="pt-1">
-                    <div id="securityCheck" class="glass-input p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-blue-500/40 transition-all select-none group">
+                    <div class="glass-input p-3.5 rounded-xl flex items-center justify-between select-none">
                         <div class="flex items-center gap-3">
-                            <div id="checkCheckbox" class="w-5 h-5 rounded-md border border-gray-600 bg-black/40 flex items-center justify-center transition-all group-hover:border-blue-500">
-                                <svg id="checkIcon" class="w-3.5 h-3.5 text-blue-400 opacity-0 scale-50 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <div class="w-5 h-5 rounded-md border border-blue-500 bg-blue-600/20 flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
                                 </svg>
                             </div>
-                            <span class="text-xs text-gray-300 font-medium">I am human (Quick verification)</span>
+                            <span class="text-xs text-gray-300 font-medium">Protected by Google reCAPTCHA Enterprise</span>
                         </div>
                         <div class="flex items-center gap-1.5 opacity-60">
-                            <svg class="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                            <span class="text-[10px] text-gray-400 font-mono">Protected</span>
+                            <span class="text-[10px] text-gray-400 font-mono">Secure</span>
                         </div>
                     </div>
-                    <input type="hidden" id="verifiedToken" value="">
-                    <p id="captchaError" class="text-xs text-rose-400 hidden mt-1">Please complete the verification check.</p>
                 </div>
 
                 <!-- Submit Button -->
@@ -277,12 +276,6 @@
             const nameError = document.getElementById('nameError');
             const emailError = document.getElementById('emailError');
             const messageError = document.getElementById('messageError');
-            const captchaError = document.getElementById('captchaError');
-
-            const securityCheck = document.getElementById('securityCheck');
-            const checkCheckbox = document.getElementById('checkCheckbox');
-            const checkIcon = document.getElementById('checkIcon');
-            const verifiedToken = document.getElementById('verifiedToken');
 
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
@@ -296,13 +289,11 @@
             const modalDoneBtn = document.getElementById('modalDoneBtn');
             const toastContainer = document.getElementById('toastContainer');
 
-            // New Interactive Status Widget Elements
+            // Interactive Status Widget Elements
             const statusWidget = document.getElementById('statusWidget');
             const statusLabel = document.getElementById('statusLabel');
             const localTimeDisplay = document.getElementById('localTimeDisplay');
             const statusDot = document.getElementById('statusDot');
-
-            let isVerified = false;
 
             // Haptic feedback helper
             const triggerHaptic = () => {
@@ -319,7 +310,6 @@
                 const timeString = `${hours % 12 || 12}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
                 localTimeDisplay.textContent = timeString;
 
-                // Operating hours check (e.g., 9 AM to 10 PM)
                 if (hours >= 9 && hours < 22) {
                     statusLabel.textContent = 'Online';
                     statusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
@@ -350,24 +340,6 @@
                 }
             });
 
-            // Interactive Verification Toggle
-            securityCheck.addEventListener('click', () => {
-                triggerHaptic();
-                isVerified = !isVerified;
-                if (isVerified) {
-                    checkCheckbox.classList.add('bg-blue-600', 'border-blue-500');
-                    checkIcon.classList.remove('opacity-0', 'scale-50');
-                    checkIcon.classList.add('opacity-100', 'scale-100');
-                    verifiedToken.value = 'verified_' + Date.now();
-                    captchaError.classList.add('hidden');
-                } else {
-                    checkCheckbox.classList.remove('bg-blue-600', 'border-blue-500');
-                    checkIcon.classList.add('opacity-0', 'scale-50');
-                    checkIcon.classList.remove('opacity-100', 'scale-100');
-                    verifiedToken.value = '';
-                }
-            });
-
             // Toast Notification Helper
             const showToast = (message, type = 'success') => {
                 const toast = document.createElement('div');
@@ -393,14 +365,13 @@
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
             };
 
-            // Form Submit Handler
+            // Form Submit Handler with Google reCAPTCHA Enterprise Integration
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 triggerHaptic();
 
                 let isValid = true;
 
-                // Validate Name
                 if (!nameInput.value.trim()) {
                     nameError.classList.remove('hidden');
                     isValid = false;
@@ -408,7 +379,6 @@
                     nameError.classList.add('hidden');
                 }
 
-                // Validate Email
                 if (!validateEmail(emailInput.value.trim())) {
                     emailError.classList.remove('hidden');
                     isValid = false;
@@ -416,20 +386,11 @@
                     emailError.classList.add('hidden');
                 }
 
-                // Validate Message
                 if (messageInput.value.trim().length < 10) {
                     messageError.classList.remove('hidden');
                     isValid = false;
                 } else {
                     messageError.classList.add('hidden');
-                }
-
-                // Validate Verification Check
-                if (!isVerified) {
-                    captchaError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    captchaError.classList.add('hidden');
                 }
 
                 if (!isValid) {
@@ -444,7 +405,16 @@
                 btnSpinner.classList.remove('hidden');
 
                 try {
+                    // Execute Google reCAPTCHA Enterprise
+                    let recaptchaToken = '';
+                    if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
+                        recaptchaToken = await grecaptcha.enterprise.execute('6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV', { action: 'submit_contact' });
+                    }
+
                     const formData = new FormData(form);
+                    if (recaptchaToken) {
+                        formData.append('recaptcha_token', recaptchaToken);
+                    }
                     const object = Object.fromEntries(formData);
                     const json = JSON.stringify(object);
 
@@ -462,12 +432,6 @@
                     if (response.status === 200) {
                         openSuccessModal();
                         form.reset();
-                        // Reset verification
-                        isVerified = false;
-                        checkCheckbox.classList.remove('bg-blue-600', 'border-blue-500');
-                        checkIcon.classList.add('opacity-0', 'scale-50');
-                        checkIcon.classList.remove('opacity-100', 'scale-100');
-                        verifiedToken.value = '';
                         charCounter.textContent = '0 / 500';
                     } else {
                         showToast(result.message || 'Submission failed. Please try again.', 'error');
