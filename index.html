@@ -91,7 +91,6 @@
             overflow: hidden;
         }
 
-        /* Toggle Switch Animation (Files) */
         .toggle-knob {
             transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background-color 0.3s;
         }
@@ -487,7 +486,6 @@
                     return showToast('Please fill all required standard fields.', 'error');
                 }
 
-                // Phone Validation check if Contact Method is Phone
                 const selectedMethod = document.querySelector('.contact-method-radio:checked').value;
                 if (selectedMethod === 'Phone') {
                     if (!countryCodeInput.value.trim() || !phoneNumberInput.value.trim()) {
@@ -499,26 +497,24 @@
                 submitBtn.classList.add('is-loading');
 
                 try {
-                    // Optional reCAPTCHA
                     if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
                         await new Promise(resolve => grecaptcha.enterprise.ready(async () => resolve(await grecaptcha.enterprise.execute('6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV', { action: 'submit' }))));
                     }
 
-                    // Native FormData for FormSubmit to process file uploads correctly via AJAX
+                    // Native FormData pointing to the STANDARD endpoint (No /ajax/ path to prevent stripping files)
                     const formData = new FormData(form);
                     formData.append("_subject", "New Submission: Masterclass Contact");
                     formData.append("_template", "box");
                     formData.append("_captcha", "false");
                     
-                    // Cleanup unneeded data based on toggles
                     if (!fileToggle.checked) formData.delete('attachment');
                     if (selectedMethod === 'Email') {
                         formData.delete('country_code');
                         formData.delete('phone_number');
                     }
 
-                    // Submit via Fetch
-                    const response = await fetch('https://formsubmit.co/ajax/koirala57111@gmail.com', {
+                    // Fetch using the base URL + specific Accept header for JSON response
+                    const response = await fetch('https://formsubmit.co/koirala57111@gmail.com', {
                         method: 'POST',
                         headers: { 'Accept': 'application/json' },
                         body: formData
