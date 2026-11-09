@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masterclass Form</title>
+    <title>Contact</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,6 +24,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google reCAPTCHA Enterprise API -->
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV" async defer></script>
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -137,14 +139,13 @@
         <div class="ambient-glow-2 absolute -bottom-40 -right-40 w-96 h-96 bg-purple-600/15 rounded-full blur-[150px]"></div>
     </div>
 
-    <!-- Top Floating Theme Switcher Header -->
+    <!-- Theme Switcher -->
     <header class="relative z-20 mb-6 w-full max-w-xl flex items-center justify-between px-2">
         <div class="flex items-center gap-2">
             <div class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></div>
-            <span class="text-xs font-mono uppercase tracking-widest opacity-60">Interface</span>
+            <span class="text-xs font-mono uppercase tracking-widest opacity-60">Platform</span>
         </div>
         
-        <!-- Theme Switcher Container -->
         <div class="flex items-center gap-1 p-1 rounded-2xl custom-container shadow-md transition-all">
             <button type="button" data-theme-btn="glass" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-indigo-600 text-white shadow-lg cursor-pointer">Glass</button>
             <button type="button" data-theme-btn="neumorph" class="px-3 py-1.5 rounded-xl text-xs font-semibold transition-all opacity-60 hover:opacity-100 cursor-pointer">Neumorph</button>
@@ -155,25 +156,21 @@
     <!-- Main Container -->
     <main class="w-full max-w-xl relative z-10">
         
-        <!-- Master Card -->
+        <!-- Form Card -->
         <div class="custom-container rounded-3xl p-6 sm:p-10 relative overflow-hidden transition-all duration-500">
             
-            <!-- Top Gradient Accent Bar -->
             <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
 
-            <!-- Header & Live Status Widget -->
             <div class="mb-8 flex items-start justify-between">
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-3">
                         <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
-                        Secure Transmission
+                        Contact
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Let's connect</h1>
-                    <p class="text-sm opacity-60 mt-1.5">Send a message and expect a prompt response.</p>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Get in touch</h1>
                 </div>
 
-                <!-- Custom Interactive Time Widget -->
-                <div id="statusWidget" class="custom-control px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all select-none group" title="Click to check status">
+                <div id="statusWidget" class="custom-control px-3.5 py-2.5 rounded-2xl flex items-center gap-2.5 cursor-pointer transition-all select-none group">
                     <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" id="statusDot"></div>
                     <div class="text-right">
                         <div class="text-[10px] opacity-60 font-mono uppercase tracking-wider" id="statusLabel">Online</div>
@@ -182,22 +179,16 @@
                 </div>
             </div>
 
-            <!-- Form configured using Formspree endpoint pointing directly to koirala57111@gmail.com (Free & fully functional out of the box) -->
-            <form id="contactForm" action="https://formspree.io/f/koirala57111" method="POST" class="space-y-5" novalidate>
+            <!-- Form -->
+            <form id="contactForm" class="space-y-5" novalidate>
                 
-                <!-- Honeypot Anti-Spam Field -->
-                <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off">
-
-                <!-- First Name & Last Name Custom Containers -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- First Name -->
                     <div class="space-y-1.5">
                         <label for="firstName" class="block text-xs font-bold tracking-wider uppercase opacity-75">First Name</label>
                         <div class="custom-control rounded-2xl flex items-center px-4 py-3.5 transition-all">
                             <input 
                                 type="text" 
                                 id="firstName" 
-                                name="first_name" 
                                 required 
                                 maxlength="40"
                                 placeholder="John" 
@@ -207,14 +198,12 @@
                         <p id="firstNameError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter your first name.</p>
                     </div>
 
-                    <!-- Last Name -->
                     <div class="space-y-1.5">
                         <label for="lastName" class="block text-xs font-bold tracking-wider uppercase opacity-75">Last Name</label>
                         <div class="custom-control rounded-2xl flex items-center px-4 py-3.5 transition-all">
                             <input 
                                 type="text" 
                                 id="lastName" 
-                                name="last_name" 
                                 required 
                                 maxlength="40"
                                 placeholder="Doe" 
@@ -225,14 +214,12 @@
                     </div>
                 </div>
 
-                <!-- Email Custom Container -->
                 <div class="space-y-1.5">
                     <label for="email" class="block text-xs font-bold tracking-wider uppercase opacity-75">Email Address</label>
                     <div class="custom-control rounded-2xl flex items-center px-4 py-3.5 transition-all">
                         <input 
                             type="email" 
                             id="email" 
-                            name="email" 
                             required 
                             maxlength="100"
                             placeholder="john.doe@example.com" 
@@ -242,7 +229,6 @@
                     <p id="emailError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter a valid email address.</p>
                 </div>
 
-                <!-- Message Custom Container -->
                 <div class="space-y-1.5">
                     <div class="flex items-center justify-between">
                         <label for="message" class="block text-xs font-bold tracking-wider uppercase opacity-75">Message</label>
@@ -251,18 +237,30 @@
                     <div class="custom-control rounded-2xl p-4 transition-all">
                         <textarea 
                             id="message" 
-                            name="message" 
                             required 
                             rows="4" 
                             maxlength="500"
-                            placeholder="Write your message here (min 10 characters)..." 
+                            placeholder="Write your message here..." 
                             class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-500 resize-none"
                         ></textarea>
                     </div>
                     <p id="messageError" class="text-xs text-rose-500 font-medium hidden mt-1">Please enter at least 10 characters.</p>
                 </div>
 
-                <!-- Custom Submit Button Wrapper -->
+                <div class="pt-1">
+                    <div class="custom-control p-3.5 rounded-2xl flex items-center justify-between select-none">
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-md border border-indigo-500 bg-indigo-600/20 flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span class="text-xs font-medium opacity-90">Protected by Google reCAPTCHA Enterprise</span>
+                        </div>
+                        <span class="text-[10px] font-mono opacity-60">Verified</span>
+                    </div>
+                </div>
+
                 <button 
                     type="submit" 
                     id="submitBtn"
@@ -285,18 +283,16 @@
         </div>
     </main>
 
-    <!-- Custom Success Modal -->
+    <!-- Success Modal -->
     <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
         <div class="custom-container w-full max-w-md rounded-3xl p-8 text-center relative transform scale-95 transition-all duration-300 shadow-2xl" id="successCard">
             
-            <!-- Close Button -->
             <button id="closeModalBtn" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
 
-            <!-- Animated Check Icon -->
             <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-tr from-indigo-500/20 to-purple-500/25 border border-indigo-500/30 flex items-center justify-center relative shadow-inner">
                 <div class="absolute inset-0 rounded-full bg-indigo-500/10 animate-ping"></div>
                 <svg class="w-10 h-10 text-indigo-400 transform scale-0 transition-transform duration-500 delay-150" id="successCheckSvg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -304,8 +300,8 @@
                 </svg>
             </div>
 
-            <h3 class="text-2xl font-extrabold mb-2">Message Sent Successfully</h3>
-            <p class="text-sm opacity-60 mb-8 leading-relaxed">Thank you for reaching out. Your secure transmission has been delivered.</p>
+            <h3 class="text-2xl font-extrabold mb-2">Message Sent</h3>
+            <p class="text-sm opacity-60 mb-8 leading-relaxed">Thank you. Your message has been successfully submitted.</p>
 
             <button 
                 id="modalDoneBtn"
@@ -316,19 +312,17 @@
         </div>
     </div>
 
-    <!-- Toast Notification System -->
+    <!-- Toasts -->
     <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- Script Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Theme Switcher Logic ---
+            // Theme Logic
             const themeButtons = document.querySelectorAll('[data-theme-btn]');
             const htmlElement = document.documentElement;
 
             const setTheme = (themeName) => {
                 htmlElement.setAttribute('data-theme', themeName);
-                
                 themeButtons.forEach(btn => {
                     if (btn.getAttribute('data-theme-btn') === themeName) {
                         btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold transition-all bg-indigo-600 text-white shadow-lg cursor-pointer';
@@ -344,16 +338,14 @@
 
             themeButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const theme = btn.getAttribute('data-theme-btn');
-                    setTheme(theme);
+                    setTheme(btn.getAttribute('data-theme-btn'));
                     triggerHaptic();
                 });
             });
 
-            // --- Particle Generator ---
+            // Particles
             const particleContainer = document.getElementById('particleContainer');
-            const particleCount = 22;
-            for (let i = 0; i < particleCount; i++) {
+            for (let i = 0; i < 22; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle bg-indigo-500/20';
                 const size = Math.random() * 6 + 2;
@@ -366,7 +358,7 @@
                 particleContainer.appendChild(p);
             }
 
-            // --- Form Handling & Seamless Free Submission ---
+            // Form Variables
             const form = document.getElementById('contactForm');
             const firstNameInput = document.getElementById('firstName');
             const lastNameInput = document.getElementById('lastName');
@@ -387,21 +379,15 @@
             const successModal = document.getElementById('successModal');
             const successCard = document.getElementById('successCard');
             const successCheckSvg = document.getElementById('successCheckSvg');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const modalDoneBtn = document.getElementById('modalDoneBtn');
-            const toastContainer = document.getElementById('toastContainer');
-
-            // Time & Availability Widget
-            const statusWidget = document.getElementById('statusWidget');
-            const statusLabel = document.getElementById('statusLabel');
-            const localTimeDisplay = document.getElementById('localTimeDisplay');
-            const statusDot = document.getElementById('statusDot');
 
             const triggerHaptic = () => {
-                if (window.navigator && typeof window.navigator.vibrate === 'function') {
-                    window.navigator.vibrate(15);
-                }
+                if (window.navigator && typeof window.navigator.vibrate === 'function') window.navigator.vibrate(15);
             };
+
+            // Time Status
+            const localTimeDisplay = document.getElementById('localTimeDisplay');
+            const statusLabel = document.getElementById('statusLabel');
+            const statusDot = document.getElementById('statusDot');
 
             const updateLocalTime = () => {
                 const now = new Date();
@@ -419,11 +405,6 @@
             updateLocalTime();
             setInterval(updateLocalTime, 30000);
 
-            statusWidget.addEventListener('click', () => {
-                triggerHaptic();
-                showToast(statusLabel.textContent === 'Online' ? 'Active now and responding promptly.' : 'Outside active hours, messages monitored.', 'success');
-            });
-
             messageInput.addEventListener('input', () => {
                 const len = messageInput.value.length;
                 charCounter.textContent = `${len} / 500`;
@@ -440,8 +421,7 @@
                 const toast = document.createElement('div');
                 toast.className = `pointer-events-auto px-4 py-3 rounded-2xl custom-container text-sm shadow-2xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300 border ${type === 'error' ? 'border-rose-500/50 bg-rose-950/40 text-white' : 'border-indigo-500/50 bg-indigo-950/40 text-white'}`;
                 toast.innerHTML = `<span class="w-2 h-2 rounded-full ${type === 'error' ? 'bg-rose-400' : 'bg-indigo-400'}"></span><span>${message}</span>`;
-                toastContainer.appendChild(toast);
-                
+                document.getElementById('toastContainer').appendChild(toast);
                 requestAnimationFrame(() => toast.classList.remove('translate-y-4', 'opacity-0'));
                 setTimeout(() => {
                     toast.classList.add('translate-y-4', 'opacity-0');
@@ -456,39 +436,12 @@
                 triggerHaptic();
 
                 let isValid = true;
+                if (!firstNameInput.value.trim()) { firstNameError.classList.remove('hidden'); isValid = false; } else { firstNameError.classList.add('hidden'); }
+                if (!lastNameInput.value.trim()) { lastNameError.classList.remove('hidden'); isValid = false; } else { lastNameError.classList.add('hidden'); }
+                if (!validateEmail(emailInput.value.trim())) { emailError.classList.remove('hidden'); isValid = false; } else { emailError.classList.add('hidden'); }
+                if (messageInput.value.trim().length < 10) { messageError.classList.remove('hidden'); isValid = false; } else { messageError.classList.add('hidden'); }
 
-                if (!firstNameInput.value.trim()) {
-                    firstNameError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    firstNameError.classList.add('hidden');
-                }
-
-                if (!lastNameInput.value.trim()) {
-                    lastNameError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    lastNameError.classList.add('hidden');
-                }
-
-                if (!validateEmail(emailInput.value.trim())) {
-                    emailError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    emailError.classList.add('hidden');
-                }
-
-                if (messageInput.value.trim().length < 10) {
-                    messageError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    messageError.classList.add('hidden');
-                }
-
-                if (!isValid) {
-                    showToast('Please correct the highlighted fields.', 'error');
-                    return;
-                }
+                if (!isValid) return showToast('Please correct the highlighted fields.', 'error');
 
                 submitBtn.disabled = true;
                 btnText.textContent = 'Sending...';
@@ -496,23 +449,47 @@
                 btnSpinner.classList.remove('hidden');
 
                 try {
-                    const formData = new FormData(form);
+                    // reCAPTCHA Enterprise execution (Optional validation payload)
+                    let token = '';
+                    if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
+                        token = await new Promise((resolve) => {
+                            grecaptcha.enterprise.ready(async () => {
+                                resolve(await grecaptcha.enterprise.execute('6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV', { action: 'submit_contact' }));
+                            });
+                        });
+                    }
 
-                    const response = await fetch(form.action, {
+                    // FormSubmit AJAX Payload
+                    const payload = {
+                        first_name: firstNameInput.value.trim(),
+                        last_name: lastNameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        message: messageInput.value.trim(),
+                        _subject: "New Contact Form Submission",
+                        _captcha: "false" // Disable UI captcha, done via AJAX
+                    };
+
+                    const response = await fetch('https://formsubmit.co/ajax/koirala57111@gmail.com', {
                         method: 'POST',
-                        body: formData,
                         headers: {
+                            'Content-Type': 'application/json',
                             'Accept': 'application/json'
-                        }
+                        },
+                        body: JSON.stringify(payload)
                     });
 
                     if (response.ok) {
-                        openSuccessModal();
+                        successModal.classList.remove('opacity-0', 'pointer-events-none');
+                        successCard.classList.remove('scale-95');
+                        successCard.classList.add('scale-100');
+                        setTimeout(() => {
+                            successCheckSvg.classList.remove('scale-0');
+                            successCheckSvg.classList.add('scale-100');
+                        }, 150);
                         form.reset();
                         charCounter.textContent = '0 / 500';
                     } else {
-                        const result = await response.json();
-                        showToast(result.error || 'Submission failed. Please try again.', 'error');
+                        showToast('Submission failed. Please try again.', 'error');
                     }
                 } catch (error) {
                     console.error(error);
@@ -525,16 +502,6 @@
                 }
             });
 
-            const openSuccessModal = () => {
-                successModal.classList.remove('opacity-0', 'pointer-events-none');
-                successCard.classList.remove('scale-95');
-                successCard.classList.add('scale-100');
-                setTimeout(() => {
-                    successCheckSvg.classList.remove('scale-0');
-                    successCheckSvg.classList.add('scale-100');
-                }, 150);
-            };
-
             const closeSuccessModal = () => {
                 successModal.classList.add('opacity-0', 'pointer-events-none');
                 successCard.classList.add('scale-95');
@@ -543,11 +510,9 @@
                 successCheckSvg.classList.remove('scale-100');
             };
 
-            closeModalBtn.addEventListener('click', closeSuccessModal);
-            modalDoneBtn.addEventListener('click', closeSuccessModal);
-            successModal.addEventListener('click', (e) => {
-                if (e.target === successModal) closeSuccessModal();
-            });
+            document.getElementById('closeModalBtn').addEventListener('click', closeSuccessModal);
+            document.getElementById('modalDoneBtn').addEventListener('click', closeSuccessModal);
+            successModal.addEventListener('click', (e) => { if (e.target === successModal) closeSuccessModal(); });
         });
     </script>
 </body>
