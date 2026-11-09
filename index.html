@@ -91,16 +91,6 @@
             overflow: hidden;
         }
 
-        .toggle-knob {
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background-color 0.3s;
-        }
-        input:checked ~ .toggle-bg {
-            background-color: #6366f1;
-        }
-        input:checked ~ .toggle-bg .toggle-knob {
-            transform: translateX(20px);
-        }
-
         /* --- MORPHING BUTTON ANIMATION --- */
         .btn-content, .btn-loader, .btn-success {
             transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -200,7 +190,7 @@
             </div>
 
             <!-- Form -->
-            <form id="contactForm" enctype="multipart/form-data" class="space-y-6" novalidate>
+            <form id="contactForm" class="space-y-6" novalidate>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div class="space-y-2">
@@ -228,7 +218,6 @@
                 <div class="space-y-3">
                     <div class="flex items-center justify-between">
                         <label class="block text-[11px] font-extrabold tracking-widest uppercase opacity-60">Reply Via</label>
-                        <!-- Segmented Toggle -->
                         <div class="flex bg-white/5 p-1 rounded-xl">
                             <label class="cursor-pointer">
                                 <input type="radio" name="contact_method" value="Email" class="hidden peer contact-method-radio" checked>
@@ -241,15 +230,14 @@
                         </div>
                     </div>
                     
-                    <!-- Expandable Phone Area -->
                     <div id="phoneArea" class="grid-expand">
                         <div class="grid-inner">
                             <div class="flex gap-3 pt-1">
                                 <div class="theme-input rounded-2xl flex items-center px-3 py-3.5 transition-all w-24">
-                                    <input type="text" id="countryCode" name="country_code" placeholder="+977" class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-600 text-center font-mono">
+                                    <input type="text" id="countryCode" name="country_code" placeholder="+977" maxlength="4" class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-600 text-center font-mono">
                                 </div>
                                 <div class="theme-input rounded-2xl flex items-center px-4 py-3.5 transition-all flex-1">
-                                    <input type="tel" id="phoneNumber" name="phone_number" placeholder="98XXXXXXXX" class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-600">
+                                    <input type="text" id="phoneNumber" name="phone_number" placeholder="98XXXXXXXX" maxlength="10" class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-600 font-mono">
                                 </div>
                             </div>
                         </div>
@@ -285,33 +273,15 @@
                     </div>
                 </div>
 
-                <!-- Custom File Upload Toggle -->
-                <div class="pt-2">
-                    <label class="inline-flex items-center gap-3 cursor-pointer group">
-                        <input type="checkbox" id="fileToggle" class="hidden">
-                        <div class="toggle-bg w-10 h-6 bg-white/10 rounded-full p-1 transition-colors group-hover:bg-white/20">
-                            <div class="toggle-knob w-4 h-4 bg-white rounded-full"></div>
-                        </div>
-                        <span class="text-[11px] font-extrabold tracking-widest uppercase opacity-60 group-hover:opacity-100 transition-opacity">Attach File</span>
-                    </label>
-
-                    <!-- Expandable File Area -->
-                    <div id="fileArea" class="grid-expand mt-3">
-                        <div class="grid-inner">
-                            <div class="theme-input rounded-2xl border-dashed border-2 border-indigo-500/30 p-6 text-center transition-all hover:border-indigo-500/60 relative cursor-pointer group">
-                                <input type="file" id="attachment" name="attachment" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
-                                <div class="flex flex-col items-center gap-2 pointer-events-none">
-                                    <div class="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
-                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm font-bold text-indigo-400" id="fileNameDisplay">Click or drag file to upload</p>
-                                        <p class="text-[10px] opacity-50 mt-1 uppercase tracking-wider">Max 10MB (PDF, Image, Word)</p>
-                                    </div>
-                                </div>
+                <div class="pt-1">
+                    <div class="theme-input p-3.5 rounded-2xl flex items-center justify-between select-none">
+                        <div class="flex items-center gap-3">
+                            <div class="w-5 h-5 rounded-md border border-indigo-500 bg-indigo-600/20 flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+                                </svg>
                             </div>
+                            <span class="text-xs font-medium opacity-90">Protected by Google reCAPTCHA Enterprise</span>
                         </div>
                     </div>
                 </div>
@@ -319,7 +289,6 @@
                 <!-- Animated Morphing Button -->
                 <button type="submit" id="submitBtn" class="submit-btn w-full relative group overflow-hidden rounded-2xl font-bold text-sm shadow-xl transition-all cursor-pointer h-14 bg-indigo-600 hover:bg-indigo-500 text-white mt-2">
                     
-                    <!-- Content -->
                     <div class="btn-content w-full h-full flex items-center justify-center gap-2">
                         <span>Send Transmission</span>
                         <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -327,12 +296,10 @@
                         </svg>
                     </div>
                     
-                    <!-- Spinner -->
                     <div class="btn-loader">
                         <div class="custom-spinner"></div>
                     </div>
 
-                    <!-- Success State -->
                     <div class="btn-success">
                         <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
@@ -420,36 +387,21 @@
                 });
             });
 
-            // File Upload UI Logic
-            const fileToggle = document.getElementById('fileToggle');
-            const fileArea = document.getElementById('fileArea');
-            const fileInput = document.getElementById('attachment');
-            const fileNameDisplay = document.getElementById('fileNameDisplay');
-
-            fileToggle.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    fileArea.classList.add('is-open');
-                } else {
-                    fileArea.classList.remove('is-open');
-                    fileInput.value = ''; 
-                    fileNameDisplay.textContent = 'Click or drag file to upload';
-                    fileNameDisplay.classList.remove('text-emerald-400');
-                    fileNameDisplay.classList.add('text-indigo-400');
+            // Restrict Country Code to '+' and exactly max 3 numbers (total 4 characters limit enforced by HTML)
+            countryCodeInput.addEventListener('input', (e) => {
+                let val = e.target.value;
+                // Allow only numbers and leading '+'
+                val = val.replace(/[^\d+]/g, '');
+                // Ensure '+' is only at the start if present
+                if (val.indexOf('+') > 0) {
+                    val = val.replace(/\+/g, '');
                 }
+                e.target.value = val;
             });
 
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    const file = e.target.files[0];
-                    if(file.size > 10 * 1024 * 1024) {
-                        showToast('File must be less than 10MB', 'error');
-                        fileInput.value = '';
-                        return;
-                    }
-                    fileNameDisplay.textContent = file.name;
-                    fileNameDisplay.classList.remove('text-indigo-400');
-                    fileNameDisplay.classList.add('text-emerald-400');
-                }
+            // Restrict Phone Number strictly to 10 numerical digits
+            phoneNumberInput.addEventListener('input', (e) => {
+                e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
             });
 
             // Form Logic
@@ -488,8 +440,8 @@
 
                 const selectedMethod = document.querySelector('.contact-method-radio:checked').value;
                 if (selectedMethod === 'Phone') {
-                    if (!countryCodeInput.value.trim() || !phoneNumberInput.value.trim()) {
-                        return showToast('Please enter Country Code and Phone Number.', 'error');
+                    if (!countryCodeInput.value.trim() || phoneNumberInput.value.trim().length !== 10) {
+                        return showToast('Please enter a valid Country Code and a 10-digit Phone Number.', 'error');
                     }
                 }
 
@@ -501,22 +453,22 @@
                         await new Promise(resolve => grecaptcha.enterprise.ready(async () => resolve(await grecaptcha.enterprise.execute('6LdTMBYuAAAAAGUZD2Iy6lFprt3IXAKuEOe3cWyV', { action: 'submit' }))));
                     }
 
-                    // Native FormData pointing to the STANDARD endpoint (No /ajax/ path to prevent stripping files)
+                    // Reverted back to FormSubmit's native AJAX endpoint since files are completely removed
                     const formData = new FormData(form);
                     formData.append("_subject", "New Submission: Masterclass Contact");
                     formData.append("_template", "box");
                     formData.append("_captcha", "false");
                     
-                    if (!fileToggle.checked) formData.delete('attachment');
                     if (selectedMethod === 'Email') {
                         formData.delete('country_code');
                         formData.delete('phone_number');
                     }
 
-                    // Fetch using the base URL + specific Accept header for JSON response
-                    const response = await fetch('https://formsubmit.co/koirala57111@gmail.com', {
+                    const response = await fetch('https://formsubmit.co/ajax/koirala57111@gmail.com', {
                         method: 'POST',
-                        headers: { 'Accept': 'application/json' },
+                        headers: { 
+                            'Accept': 'application/json' 
+                        },
                         body: formData
                     });
 
@@ -526,16 +478,16 @@
                         submitBtn.classList.add('is-success');
                         
                         setTimeout(() => {
-                            // Sequence 3: Open God-Tier Modal
+                            // Sequence 3: Open Modal
                             successModal.classList.remove('opacity-0', 'pointer-events-none');
                             successModal.classList.add('modal-active');
                             successCard.classList.remove('scale-90', 'translate-y-8');
                             
                             form.reset();
                             charCounter.textContent = '0/500';
-                            if(fileToggle.checked) fileToggle.click(); // Reset file UI
+                            
                             if(selectedMethod === 'Phone') {
-                                document.querySelector('input[value="Email"]').checked = true; // Reset back to Email Default
+                                document.querySelector('input[value="Email"]').checked = true;
                                 phoneArea.classList.remove('is-open');
                             }
                             
