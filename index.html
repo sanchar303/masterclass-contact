@@ -91,7 +91,7 @@
             overflow: hidden;
         }
 
-        /* Toggle Switch Animation */
+        /* Toggle Switch Animation (Files) */
         .toggle-knob {
             transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), background-color 0.3s;
         }
@@ -115,7 +115,6 @@
             pointer-events: none;
         }
         
-        /* State: Loading */
         .submit-btn.is-loading .btn-content {
             opacity: 0;
             transform: scale(0.95);
@@ -125,7 +124,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        /* State: Success Checkmark */
         .submit-btn.is-success .btn-loader {
             opacity: 0;
             transform: translate(-50%, -50%) scale(0.8);
@@ -135,7 +133,6 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        /* Loading Ring */
         .custom-spinner {
             width: 24px;
             height: 24px;
@@ -184,7 +181,6 @@
         <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px]"></div>
     </div>
 
-    <!-- Switcher -->
     <header class="relative z-20 mb-6 w-full max-w-xl flex justify-end px-2">
         <div class="flex items-center gap-1 p-1.5 rounded-2xl theme-container transition-all">
             <button type="button" data-theme-btn="glass" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-indigo-600 text-white shadow-lg cursor-pointer">Glass</button>
@@ -199,14 +195,12 @@
 
             <div class="mb-8 flex items-start justify-between">
                 <h1 class="text-3xl font-extrabold tracking-tight">Masterclass Contact</h1>
-                
-                <!-- Time Widget -->
                 <div class="theme-input px-4 py-2 rounded-2xl flex items-center gap-2 select-none">
                     <div class="text-xs font-bold font-mono tracking-wider opacity-80" id="localTimeDisplay">--:--</div>
                 </div>
             </div>
 
-            <!-- Form setup with enctype for files -->
+            <!-- Form -->
             <form id="contactForm" enctype="multipart/form-data" class="space-y-6" novalidate>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -228,6 +222,57 @@
                     <label for="email" class="block text-[11px] font-extrabold tracking-widest uppercase opacity-60">Email</label>
                     <div class="theme-input rounded-2xl flex items-center px-4 py-3.5 transition-all">
                         <input type="email" id="email" name="email" required maxlength="100" placeholder="john@example.com" class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-600">
+                    </div>
+                </div>
+
+                <!-- Preferred Contact Method & Phone Expansion -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="block text-[11px] font-extrabold tracking-widest uppercase opacity-60">Reply Via</label>
+                        <!-- Segmented Toggle -->
+                        <div class="flex bg-white/5 p-1 rounded-xl">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="contact_method" value="Email" class="hidden peer contact-method-radio" checked>
+                                <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg opacity-50 peer-checked:opacity-100 peer-checked:bg-indigo-600 peer-checked:text-white transition-all">Email</div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="contact_method" value="Phone" class="hidden peer contact-method-radio">
+                                <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg opacity-50 peer-checked:opacity-100 peer-checked:bg-indigo-600 peer-checked:text-white transition-all">Phone</div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Expandable Phone Area -->
+                    <div id="phoneArea" class="grid-expand">
+                        <div class="grid-inner">
+                            <div class="flex gap-3 pt-1">
+                                <div class="theme-input rounded-2xl flex items-center px-3 py-3.5 transition-all w-24">
+                                    <input type="text" id="countryCode" name="country_code" placeholder="+977" class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-600 text-center font-mono">
+                                </div>
+                                <div class="theme-input rounded-2xl flex items-center px-4 py-3.5 transition-all flex-1">
+                                    <input type="tel" id="phoneNumber" name="phone_number" placeholder="98XXXXXXXX" class="w-full bg-transparent border-none outline-none text-sm placeholder-gray-600">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Urgency Toggle Pills -->
+                <div class="space-y-2">
+                    <label class="block text-[11px] font-extrabold tracking-widest uppercase opacity-60">Urgency Level</label>
+                    <div class="flex gap-2">
+                        <label class="cursor-pointer flex-1 group">
+                            <input type="radio" name="urgency" value="Low" class="hidden peer">
+                            <div class="theme-input py-2.5 text-center rounded-xl text-[11px] font-bold uppercase tracking-wider opacity-60 group-hover:opacity-80 peer-checked:opacity-100 peer-checked:bg-emerald-500/15 peer-checked:text-emerald-400 peer-checked:border-emerald-500/40 transition-all border border-transparent">Low</div>
+                        </label>
+                        <label class="cursor-pointer flex-1 group">
+                            <input type="radio" name="urgency" value="Normal" class="hidden peer" checked>
+                            <div class="theme-input py-2.5 text-center rounded-xl text-[11px] font-bold uppercase tracking-wider opacity-60 group-hover:opacity-80 peer-checked:opacity-100 peer-checked:bg-indigo-500/15 peer-checked:text-indigo-400 peer-checked:border-indigo-500/40 transition-all border border-transparent">Normal</div>
+                        </label>
+                        <label class="cursor-pointer flex-1 group">
+                            <input type="radio" name="urgency" value="High" class="hidden peer">
+                            <div class="theme-input py-2.5 text-center rounded-xl text-[11px] font-bold uppercase tracking-wider opacity-60 group-hover:opacity-80 peer-checked:opacity-100 peer-checked:bg-rose-500/15 peer-checked:text-rose-400 peer-checked:border-rose-500/40 transition-all border border-transparent">High</div>
+                        </label>
                     </div>
                 </div>
 
@@ -273,7 +318,7 @@
                 </div>
 
                 <!-- Animated Morphing Button -->
-                <button type="submit" id="submitBtn" class="submit-btn w-full relative group overflow-hidden rounded-2xl font-bold text-sm shadow-xl transition-all cursor-pointer h-14 bg-indigo-600 hover:bg-indigo-500 text-white">
+                <button type="submit" id="submitBtn" class="submit-btn w-full relative group overflow-hidden rounded-2xl font-bold text-sm shadow-xl transition-all cursor-pointer h-14 bg-indigo-600 hover:bg-indigo-500 text-white mt-2">
                     
                     <!-- Content -->
                     <div class="btn-content w-full h-full flex items-center justify-center gap-2">
@@ -312,7 +357,7 @@
             </div>
 
             <h3 class="text-xl font-extrabold mb-2">Transmission Sent</h3>
-            <p class="text-sm opacity-50 mb-8">Your message and files have securely landed in our inbox.</p>
+            <p class="text-sm opacity-50 mb-8">Your message and details have securely landed in our inbox.</p>
 
             <button id="modalDoneBtn" class="w-full py-3.5 px-6 rounded-2xl bg-white/10 hover:bg-white/20 font-bold text-sm transition-colors cursor-pointer">
                 Close
@@ -359,6 +404,22 @@
             };
             updateLocalTime();
             setInterval(updateLocalTime, 30000);
+
+            // Contact Method Expand Logic
+            const contactMethodRadios = document.querySelectorAll('.contact-method-radio');
+            const phoneArea = document.getElementById('phoneArea');
+            const countryCodeInput = document.getElementById('countryCode');
+            const phoneNumberInput = document.getElementById('phoneNumber');
+
+            contactMethodRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    if (e.target.value === 'Phone') {
+                        phoneArea.classList.add('is-open');
+                    } else {
+                        phoneArea.classList.remove('is-open');
+                    }
+                });
+            });
 
             // File Upload UI Logic
             const fileToggle = document.getElementById('fileToggle');
@@ -423,7 +484,15 @@
 
                 const requiredIds = ['firstName', 'lastName', 'email', 'message'];
                 if(requiredIds.some(id => !document.getElementById(id).value.trim())) {
-                    return showToast('Please fill all required fields.', 'error');
+                    return showToast('Please fill all required standard fields.', 'error');
+                }
+
+                // Phone Validation check if Contact Method is Phone
+                const selectedMethod = document.querySelector('.contact-method-radio:checked').value;
+                if (selectedMethod === 'Phone') {
+                    if (!countryCodeInput.value.trim() || !phoneNumberInput.value.trim()) {
+                        return showToast('Please enter Country Code and Phone Number.', 'error');
+                    }
                 }
 
                 // Sequence 1: Loading
@@ -441,12 +510,14 @@
                     formData.append("_template", "box");
                     formData.append("_captcha", "false");
                     
-                    // Do not append attachment if toggle is off
-                    if (!fileToggle.checked) {
-                        formData.delete('attachment');
+                    // Cleanup unneeded data based on toggles
+                    if (!fileToggle.checked) formData.delete('attachment');
+                    if (selectedMethod === 'Email') {
+                        formData.delete('country_code');
+                        formData.delete('phone_number');
                     }
 
-                    // Submit via Fetch (FormSubmit automatically parses FormData boundaries)
+                    // Submit via Fetch
                     const response = await fetch('https://formsubmit.co/ajax/koirala57111@gmail.com', {
                         method: 'POST',
                         headers: { 'Accept': 'application/json' },
@@ -467,6 +538,10 @@
                             form.reset();
                             charCounter.textContent = '0/500';
                             if(fileToggle.checked) fileToggle.click(); // Reset file UI
+                            if(selectedMethod === 'Phone') {
+                                document.querySelector('input[value="Email"]').checked = true; // Reset back to Email Default
+                                phoneArea.classList.remove('is-open');
+                            }
                             
                             setTimeout(() => submitBtn.classList.remove('is-success'), 500);
                         }, 800);
